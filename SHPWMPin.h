@@ -14,9 +14,14 @@ public:
 		}
 #endif
 	}
+
 	SHPWMPin(int pin) {
 		p = pin;
 		pinMode(pin, OUTPUT);
+	}
+
+	SetValue(int value) {
+		analogWrite(p, value);
 	}
 
 	void readFromString()

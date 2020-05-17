@@ -1,10 +1,29 @@
 #ifndef __SHCUSTOMPROTOCOL_H__
 #define __SHCUSTOMPROTOCOL_H__
 
+/* SimHub custom hardware to support SwitechX25/27 gauges
+ * Arduino via Switec X12.017 and compatible chips
+ * good info at https://guy.carpenter.id.au/gaugette/2017/04/29/switecx25-quad-driver-tests/
+
+ * REQUIRES https://github.com/penfold42/SwitecX25/
+
+ * expects 2 parameters split by ;
+ * parameter 1: step count to set the gauge to (0-3779)
+ * parameter 2: used to recalibrate the gauge if changed from 0 to 1
+
+SimHub dash config:
+- My gauge has 9000 RPM at a count of approx 2700 steps
+- I use a change in oil pressure at engine start to recal the gauge
+
+format( [Rpms]*27/90,'0') + ';' +
+format( [OilPressure]*10,'0' )
+
+ */
+ 
 #include <Arduino.h>
 #include <SwitecX12.h>
 
-// standard X25.168 range 315 degrees at 1/3 degree steps
+// standard X25.168 range 315 degrees at 1/12 degree steps
 #define STEPS (315*12)
 
 
@@ -14,7 +33,12 @@ SwitecX12 motor1(STEPS,21, 20, 19);
 
 class SHCustomProtocol {
 private:
+	int lastOil = 0;
 
+	// mode 0 - normal running
+	// mode 1 - seeking to full
+	// mode 2 - seeking to zero
+	int mode = 0;
 public:
 
 	/*
@@ -43,38 +67,43 @@ public:
 	// Called when starting the arduino (setup method in main sketch)
 	void setup() {
 		// run the motor against the stops
-		motor1.full();
-		delay(200);
 		motor1.zero();
+		delay(100);
 		// start moving towards the center of the range
-		motor1.setPosition(STEPS/2);
+		motor1.full();
+		delay(100);
+		motor1.setPosition(0);
 	}
 
 	// Called when new data is coming from computer
 	void read() {
-		// EXAMPLE 1 - read the whole message and sent it back to simhub as debug message
-		// Protocol formula can be set in simhub to anything, it will just echo it
-		// -------------------------------------------------------
-//		String message = FlowSerialReadStringUntil('\n');
-//		FlowSerialDebugPrintLn("Message received : " + message);
-	
-		/*
-		// -------------------------------------------------------
-		// EXAMPLE 2 - reads speed and gear from the message
-		// Protocol formula must be set in simhub to
-		// format([DataCorePlugin.GameData.NewData.SpeedKmh],'0') + ';' + isnull([DataCorePlugin.GameData.NewData.Gear],'N')
-		// -------------------------------------------------------
 
-		int speed = FlowSerialReadStringUntil(';').toInt();
-		String gear = FlowSerialReadStringUntil('\n');
+		int MicroStep = FlowSerialReadStringUntil(';').toInt();
+		int       Oil = FlowSerialReadStringUntil('\n').toInt();
 
-		FlowSerialDebugPrintLn("Speed : " + String(speed));
-		FlowSerialDebugPrintLn("Gear : " + gear);
-		*/
+		if ( (Oil > 0)  && (lastOil == 0) ){
+			mode = 1;
+			motor1.setPosition(motor1.steps-1);
 
-
-		int MicroStep = FlowSerialReadStringUntil('\n').toInt();
-		motor1.setPosition(MicroStep);
+		} else {
+			switch (mode) {
+				case 0:
+					motor1.setPosition(MicroStep);
+					break;
+				case 1:
+					if (motor1.currentStep == motor1.steps-1) {
+						mode = 2;
+						motor1.setPosition(0);
+					}
+					break;
+				case 2:
+					if (motor1.currentStep == 0) {
+						mode = 0;
+					}
+					break;
+			}
+		}
+		lastOil = Oil;
 
 	}
 

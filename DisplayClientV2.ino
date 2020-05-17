@@ -46,8 +46,7 @@
 //#define INCLUDE_ENCODERS                    //{"Name":"INCLUDE_ENCODERS","Type":"autodefine","Condition":"[ENABLED_ENCODERS_COUNT]>0"}
 //#define INCLUDE_BUTTONS                     //{"Name":"INCLUDE_BUTTONS","Type":"autodefine","Condition":"[ENABLED_BUTTONS_COUNT]>0"}
 //#define INCLUDE_BUTTONMATRIX                //{"Name":"INCLUDE_BUTTONMATRIX","Type":"autodefine","Condition":"[ENABLED_BUTTONMATRIX]>0"}
-//#define INCLUDE_DM163_MATRIX                //{"Name":"INCLUDE_DM163_MATRIX","Type":"autodefine","Condition":"[DM163_MATRIX_ENABLED]>0"}
-
+#define INCLUDE_DM163_MATRIX                //{"Name":"INCLUDE_DM163_MATRIX","Type":"autodefine","Condition":"[DM163_MATRIX_ENABLED]>0"}
 
 #include <avr/pgmspace.h>
 #include <EEPROM.h>
@@ -62,8 +61,8 @@
 #include "SHButton.h"
 
 // ----------------------------------------------------- HW SETTINGS, PLEASE REVIEW ALL -------------------------------------------
-#define DEVICE_NAME "Switech" //{"Group":"General","Name":"DEVICE_NAME","Title":"Device name,\r\n make sure to use a unique name when using multiple arduinos","DefaultValue":"SimHub Dash","Type":"string","Template":"#define DEVICE_NAME \"{0}\""}
-#define DEVICE_UNIQUE_ID "8be2ea62-d021-40fc-b154-e41394d52e9e" //{"Name":"DEVICE_UNIQUE_ID","Type":"uniqueid"}
+#define DEVICE_NAME "SimHub Dash" //{"Group":"General","Name":"DEVICE_NAME","Title":"Device name,\r\n make sure to use a unique name when using multiple arduinos","DefaultValue":"SimHub Dash","Type":"string","Template":"#define DEVICE_NAME \"{0}\""}
+#define DEVICE_UNIQUE_ID "e0232ec2-ada3-41c5-9a56-40d17cb72fb0" //{"Name":"DEVICE_UNIQUE_ID","Type":"uniqueid"}
 
 #define ENABLE_MICRO_GAMEPAD 0           //{"Group":"GAMEPAD","Name":"ENABLE_MICRO_GAMEPAD","Title":"Enable arduino micro gamepad output for all the activated buttons/encoders","DefaultValue":"0","Type":"bool"}
 #define MICRO_GAMEPAD_ENCODERPRESSTIME 50 //{"Name":"MICRO_GAMEPAD_ENCODERPRESSTIME","Title":"Define how long (in milliseconds) the encoder related button will be hold after an encoder movement","DefaultValue":"50","Type":"int","Condition":"ENABLE_MICRO_GAMEPAD>0","Max":100}
@@ -82,7 +81,6 @@
 #define TM1638_CLK 7            //{"Name":"TM1638_CLK","Title":"Common clock (CLK) digital pin number","DefaultValue":"7","Type":"pin;TM1638 CLK","Condition":"TM1638_ENABLEDMODULES > 0"}
 #define TM1638_STB1 9           //{"Name":"TM1638_STB1","Title":"1st module strobe (STB0) digital pin number","DefaultValue":"9","Type":"pin;TM1638 STB1","Condition":"TM1638_ENABLEDMODULES > 0"}
 #define TM1638_SINGLECOLOR1 0   //{"Name":"TM1638_SINGLECOLOR1","Title":"1st module is single color","DefaultValue":"0","Type":"bool","Condition":"TM1638_ENABLEDMODULES > 0"}
-
 
 #define TM1638_STB2 10          //{"Name":"TM1638_STB2","Title":"2nd module strobe (STB1) digital pin number","DefaultValue":"10","Type":"pin;TM1638 STB2","Condition":"TM1638_ENABLEDMODULES > 1"}
 #define TM1638_SINGLECOLOR2 0   //{"Name":"TM1638_SINGLECOLOR2","Title":"2nd module is single color","DefaultValue":"0","Type":"bool","Condition":"TM1638_ENABLEDMODULES > 1"}
@@ -162,8 +160,6 @@
 
 #endif
 
-
-
 // -------------------------------------------------------------------------------------------------------
 // MAX7219 / MAX7221 7 Segment modules -----------------------------------------------------------------------------
 // http://www.dx.com/p/max7219-led-dot-matrix-digital-led-display-tube-module-cascade-391256
@@ -190,7 +186,6 @@ SHMAX72217Segment shMAX72217Segment;
 #define MAX7221_MATRIX_LOAD 4    //{"Name":"MAX7221_MATRIX_LOAD","Title":"LOAD (LD/CS) digital pin number","DefaultValue":"4","Type":"pin;MAX7221 Matrix LOAD/LD","Condition":"MAX7221_MATRIX_ENABLED>0"}
 SHMatrixMAX7219 shMatrixMAX7219;
 #endif
-
 
 // --------------------------------------------------------------------------------------------------------
 // Adafruit 8x8 single color with HT16K33 I2C Backpack
@@ -231,7 +226,6 @@ SHRGBLedsNeoPixelFastLeds shRGBLedsWS2812B;
 SHRGBLedsNeoPixel shRGBLedsWS2812B;
 Adafruit_NeoPixel WS2812B_strip = Adafruit_NeoPixel(WS2812B_RGBLEDCOUNT, WS2812B_DATAPIN, (WS2812B_RGBENCODING == 0 ? NEO_GRB : (WS2812B_RGBENCODING == 1 ? NEO_RGB : NEO_BRG)) + NEO_KHZ800);
 #endif
-
 
 #endif
 
@@ -287,7 +281,7 @@ Adafruit_NeoPixel WS2812B_matrix = Adafruit_NeoPixel(64, WS2812B_MATRIX_DATAPIN,
 // https://www.sunfounder.com/full-color-rgb-led-matrix-driver-shield-rgb-matrix-screen.html
 // -------------------------------------------------------------------------------------------------------
 
-#define DM163_MATRIX_ENABLED 0 //{"Group":"DM163 RGB Matrix","Name":"DM163_MATRIX_ENABLED","Title":"DEPRECATED, DO NOT USE","DefaultValue":"0","Type":"bool"}
+#define DM163_MATRIX_ENABLED 1 //{"Group":"DM163 RGB Matrix","Name":"DM163_MATRIX_ENABLED","Title":"DEPRECATED, DO NOT USE","DefaultValue":"0","Type":"bool"}
 
 #ifdef INCLUDE_DM163_MATRIX
 #include <Colorduino.h>
@@ -376,7 +370,6 @@ Adafruit_BicolorMatrix ADA_HT16K33_MATRIX = Adafruit_BicolorMatrix();
 byte ADA_HT16K33_Matrix_luminosity = 0;
 #endif
 
-
 // ------------------------ TACHOMETER ----------------------------------------------------------------------
 // https://github.com/zegreatclan/AssettoCorsaTools/wiki/Arduino-After-Market-Tach-support
 // ----------------------------------------------------------------------------------------------------------
@@ -414,7 +407,7 @@ SHPWMPin shBOOSTPIN(BOOST_PIN, true);
 #define ENABLE_TEMPGAUGE 0 //{"Group":"Water Temperature Gauge","Name":"ENABLE_TEMPGAUGE","Title":"After market temperature gauge enabled\r\n(TESTED ON BMW E36 CLUSTER, OTHER USES MAY NOT WORK, SEE WIKI)","DefaultValue":"0","Type":"bool"}
 #define TEMP_PIN 5         //{"Name":"TEMP_PIN","Title":"TEMP pwm pin","DefaultValue":"5","Type":"pin;Temperature signal","Condition":"ENABLE_TEMPGAUGE >0"}
 #include "SHPWMPin.h"
-SHPWMPin shTEMPPIN(TEMP_PIN);
+SHPWMPin shTEMPPIN(TEMP_PIN, (int)40);
 #endif
 
 // ------------------------ FUEL GAUGE ---------------------------------------------------------------------
@@ -424,7 +417,7 @@ SHPWMPin shTEMPPIN(TEMP_PIN);
 #define ENABLE_FUELGAUGE 0 //{"Group":"Fuel Gauge","Name":"ENABLE_FUELGAUGE","Title":"After market fuel gauge enabled\r\nSee wiki for wiring instructions","DefaultValue":"0","Type":"bool"}
 #define FUEL_PIN 5         //{"Name":"FUEL_PIN","Title":"FUEL pwm pin","DefaultValue":"5","Type":"pin;Fuel signal","Condition":"ENABLE_FUELGAUGE >0"}
 #include "SHPWMPin.h"
-SHPWMPin shFUELPIN(FUEL_PIN);
+SHPWMPin shFUELPIN(FUEL_PIN, (int)40);
 #endif
 
 // ------------------------ CONS GAUGE ---------------------------------------------------------------------
@@ -434,7 +427,7 @@ SHPWMPin shFUELPIN(FUEL_PIN);
 #define ENABLE_CONSGAUGE 0 //{"Group":"Consumption Gauge","Name":"ENABLE_CONSGAUGE","Title":"After market consommation gauge enabled\r\n(DO NOT USE, NOT WORKING YET)","DefaultValue":"0","Type":"bool"}
 #define CONS_PIN 5         //{"Name":"CONS_PIN","Title":"CONS pwm pin","DefaultValue":"5","Type":"pin;Consommation signal","Condition":"ENABLE_CONSGAUGE >0"}
 #include "SHPWMPin.h"
-SHPWMPin shCONSPIN(CONS_PIN);
+SHPWMPin shCONSPIN(CONS_PIN, 40);
 #endif
 
 // ----------------------- ADDITIONAL BUTTONS ---------------------------------------------------------------
@@ -475,8 +468,8 @@ SHDebouncer ButtonsDebouncer(10);
 #define ENCODER1_CLK_PIN 7           //{"Name":"ENCODER1_CLK_PIN","Title":"Encoder 1 output A (CLK) pin","DefaultValue":"7","Type":"pin;Encoder 1 CLK","Condition":"ENABLED_ENCODERS_COUNT>0"}
 #define ENCODER1_DT_PIN 8            //{"Name":"ENCODER1_DT_PIN","Title":"Encoder 1 output B (DT) pin","DefaultValue":"8","Type":"pin;Encoder 1 DT","Condition":"ENABLED_ENCODERS_COUNT>0"}
 #define ENCODER1_BUTTON_PIN 9        //{"Name":"ENCODER1_BUTTON_PIN","Title":"Encoder 1 button (SW) pin","DefaultValue":"9","Type":"pin;Encoder 1 SWITCH","Condition":"ENABLED_ENCODERS_COUNT>0","Min":-1}
-#define ENCODER1_REVERSE_DIRECTION 0 //{"Name":"ENCODER1_REVERSE_DIRECTION","Title":"Encoder 1 reverse direction","DefaultValue":"0","Type":"bool","Condition":"ENABLED_ENCODERS_COUNT>0"}
 #define ENCODER1_ENABLE_PULLUP 0     //{"Name":"ENCODER1_ENABLE_PULLUP","Title":"Encoder 1 enable pullup resistor","DefaultValue":"0","Type":"bool","Condition":"ENABLED_ENCODERS_COUNT>0"}
+#define ENCODER1_REVERSE_DIRECTION 0 //{"Name":"ENCODER1_REVERSE_DIRECTION","Title":"Encoder 1 reverse direction","DefaultValue":"0","Type":"bool","Condition":"ENABLED_ENCODERS_COUNT>0"}
 #define ENCODER1_ENABLE_HALFSTEPS 0  //{"Name":"ENCODER1_ENABLE_HALFSTEPS","Title":"Encoder 1 steps mode","DefaultValue":"0","Type":"list","Condition":"ENABLED_ENCODERS_COUNT>=1","ListValues":"0,Full steps;1,Half steps"}
 
 #define ENCODER2_CLK_PIN 11          //{"Name":"ENCODER2_CLK_PIN","Title":"Encoder 2 output A (CLK) pin","DefaultValue":"11","Type":"pin;Encoder 2 CLK","Condition":"ENABLED_ENCODERS_COUNT>1"}
@@ -532,7 +525,6 @@ SHRotaryEncoder encoder1, encoder2, encoder3, encoder4, encoder5, encoder6, enco
 SHRotaryEncoder* SHRotaryEncoders[] = { &encoder1, &encoder2, &encoder3, &encoder4, &encoder5, &encoder6, &encoder7, &encoder8 };
 #endif
 
-
 // ----------------------- ROTARY ENCODERS ------------------------------------------------------------------
 // https://www.dx.com/p/ky-040-rotary-encoder-module-brick-sensor-development-for-arduino-avr-pic-420429#.W9BCM0sza0Q
 // Rotary encoders with pull-up resistors on the 3 outputs
@@ -568,7 +560,6 @@ byte BMATRIX_ROWSDEF[8] = { BMATRIX_ROW1, BMATRIX_ROW2, BMATRIX_ROW3, BMATRIX_RO
 SHButtonMatrix shButtonMatrix;
 
 #endif
-
 
 // -------------------- SHAKEIT ADA MOTOR SHIELD V2 -------------------------------------------------------
 // https://github.com/zegreatclan/SimHub/wiki/Arduino-Shake-It
@@ -639,13 +630,10 @@ SHShakeitL298N shShakeitL298N;
 SHShakeitPWM shShakeitPWM;
 #endif
 
-
-
 // -------------------- SHAKEIT PWM FANS OUTPUT ----------------------------------------------------------------
 // https://github.com/zegreatclan/SimHub/wiki/Arduino-Shake-It
 // --------------------------------------------------------------------------------------------------------
 #define SHAKEITPWMFANS_ENABLED_MOTORS 0 //{"Group":"SHAKEIT PWM FANS Outputs","Name":"SHAKEITPWMFANS_ENABLED_MOTORS","Title":"ShakeIT direct PWM fans enabled (25khz PWM)\r\nArduino Uno : pins 9 or 10\r\nArduino Leonardo pins : 9, 10 or 11\r\nArduino Mega pins : 11, 12 or 13","DefaultValue":"0","Type":"int","Max":3}
-
 
 #ifdef INCLUDE_SHAKEITPWMFANS
 #define SHAKEITPWMFANS_O1 9             //{"Name":"SHAKEITPWMFANS_O1","Title":"PWM Output 1 pin","DefaultValue":"9","Type":"pin;ShakeIt PWM Fan 1","Condition":"SHAKEITPWMFANS_ENABLED_MOTORS>=1"}
@@ -675,7 +663,6 @@ SHShakeitPWMFans shShakeitPWMFans;
 #include "SHGLCD_I2COLED.h"
 SHGLCD_I2COLED shGLCD;
 #endif
-
 
 // -------------------- NOKIA GLCD -------------------------------------------------------------------------
 //
@@ -854,11 +841,16 @@ void idle(bool critical) {
 				for (int b = 0; b < 8; b++) {
 					mask = 0b1 << b;
 					if ((TM1638_screens[i]->Buttons & mask) != (TM1638_screens[i]->Oldbuttons & mask)) {
+#ifdef INCLUDE_GAMEPAD
+
+#else
 						arqserial.CustomPacketStart(0x04, 3);
 						arqserial.CustomPacketSendByte(i + 1);
 						arqserial.CustomPacketSendByte(b + 1);
 						arqserial.CustomPacketSendByte((TM1638_screens[i]->Oldbuttons & mask) > 0 ? 0 : 1);
 						arqserial.CustomPacketEnd();
+#endif
+
 					}
 				}
 			}
@@ -876,55 +868,61 @@ void idle(bool critical) {
 
 #ifdef  INCLUDE_ENCODERS
 void EncoderPositionChanged(int encoderId, int position, byte direction) {
+#ifdef INCLUDE_GAMEPAD
+	UpdateGamepadEncodersState(true);
+#else
 	if (direction < 2) {
 		arqserial.CustomPacketStart(0x01, 3);
 		arqserial.CustomPacketSendByte(encoderId);
 		arqserial.CustomPacketSendByte(direction);
 		arqserial.CustomPacketSendByte(position);
 		arqserial.CustomPacketEnd();
-		}
+	}
 	else {
 		arqserial.CustomPacketStart(0x02, 2);
 		arqserial.CustomPacketSendByte(encoderId);
 		arqserial.CustomPacketSendByte(direction - 2);
 		arqserial.CustomPacketEnd();
 	}
-#ifdef INCLUDE_GAMEPAD
-	UpdateGamepadEncodersState(true);
 #endif
 }
 #endif
 
 void buttonStatusChanged(int buttonId, byte Status) {
+#ifdef INCLUDE_GAMEPAD
+	Joystick.setButton(TM1638_ENABLEDMODULES * 8 + buttonId - 1, Status);
+	Joystick.sendState();
+#else
 	arqserial.CustomPacketStart(0x03, 2);
 	arqserial.CustomPacketSendByte(buttonId);
 	arqserial.CustomPacketSendByte(Status);
 	arqserial.CustomPacketEnd();
-
-#ifdef INCLUDE_GAMEPAD
-	Joystick.setButton(TM1638_ENABLEDMODULES * 8 + buttonId - 1, Status);
-	Joystick.sendState();
 #endif
-		}
+}
 
 #ifdef  INCLUDE_BUTTONMATRIX
 void buttonMatrixStatusChanged(int buttonId, byte Status) {
+#ifdef INCLUDE_GAMEPAD
+	Joystick.setButton(TM1638_ENABLEDMODULES * 8 + ENABLED_BUTTONS_COUNT + buttonId - 1, Status);
+	Joystick.sendState();
+#else
 	arqserial.CustomPacketStart(0x03, 2);
 	arqserial.CustomPacketSendByte(ENABLED_BUTTONS_COUNT + buttonId);
 	arqserial.CustomPacketSendByte(Status);
 	arqserial.CustomPacketEnd();
-
-#ifdef INCLUDE_GAMEPAD
-	Joystick.setButton(TM1638_ENABLEDMODULES * 8 + ENABLED_BUTTONS_COUNT + buttonId - 1, Status);
-	Joystick.sendState();
 #endif
-
 }
 #endif
 
-
 void setup()
 {
+//#ifdef INCLUDE_TEMPGAUGE
+//	shTEMPPIN.SetValue((int)80);
+//#endif
+#ifdef INCLUDE_FUELGAUGE
+	shFUELPIN.SetValue((int)80);
+#endif
+
 	FlowSerialBegin(19200);
 
 #ifdef INCLUDE_GAMEPAD
@@ -961,7 +959,7 @@ void setup()
 	if (WS2812B_MATRIX_ENABLED > 0) {
 		WS2812B_matrix.begin();
 		WS2812B_matrix.show();
-}
+	}
 #endif
 #ifdef INCLUDE_DM163_MATRIX
 	if (DM163_MATRIX_ENABLED > 0) {
@@ -969,7 +967,6 @@ void setup()
 		unsigned char balance[3] = { 36, 45, 63 };
 		Colorduino.SetWhiteBal(balance);
 		//HCColorDuino.RGBColourCorrection(25, 63, 63);
-
 	}
 
 #endif
@@ -1042,7 +1039,6 @@ void setup()
 	shNOKIA.Init();
 #endif
 
-
 #ifdef INCLUDE_BUTTONS
 	// EXTERNAL BUTTONS INIT
 	for (int btnIdx = 0; btnIdx < ENABLED_BUTTONS_COUNT; btnIdx++) {
@@ -1053,7 +1049,6 @@ void setup()
 #ifdef  INCLUDE_BUTTONMATRIX
 	shButtonMatrix.begin(BMATRIX_COLS, BMATRIX_ROWS, BMATRIX_COLSDEF, BMATRIX_ROWSDEF, buttonMatrixStatusChanged);
 #endif
-
 
 #ifdef INCLUDE_SHAKEITDKSHIELD
 	if (DKMOTOR_SHIELDSCOUNT > 0) shShakeitDKMotorShield.begin(DKMOTOR_USEHUMMINGREDUCING);
@@ -1212,4 +1207,4 @@ void loop() {
 			}
 		}
 	}
-	}
+}
