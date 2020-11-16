@@ -16,7 +16,7 @@
 
 //#define INCLUDE_TM1638                      //{"Name":"INCLUDE_TM1638","Type":"autodefine","Condition":"[TM1638_ENABLEDMODULES]>0"}
 //#define INCLUDE_WS2801                      //{"Name":"INCLUDE_WS2801","Type":"autodefine","Condition":"[WS2801_RGBLEDCOUNT]>0"}
-//#define INCLUDE_WS2812B                     //{"Name":"INCLUDE_WS2812B","Type":"autodefine","Condition":"[WS2812B_RGBLEDCOUNT]>0"}
+#define INCLUDE_WS2812B                     //{"Name":"INCLUDE_WS2812B","Type":"autodefine","Condition":"[WS2812B_RGBLEDCOUNT]>0"}
 //#define INCLUDE_PL9823                      //{"Name":"INCLUDE_PL9823","Type":"autodefine","Condition":"[PL9823_RGBLEDCOUNT]>0"}
 //#define INCLUDE_WS2812B_MATRIX              //{"Name":"INCLUDE_WS2812B_MATRIX","Type":"autodefine","Condition":"[WS2812B_MATRIX_ENABLED]>0"}
 //#define INCLUDE_LEDBACKPACK                 //{"Name":"INCLUDE_LEDBACKPACK","Type":"autodefine","Condition":"[ENABLE_ADA_HT16K33_7SEGMENTS]>0 || [ENABLE_ADA_HT16K33_BiColorMatrix]>0"}
@@ -25,10 +25,10 @@
 //#define INCLUDE_I2CLCD                      //{"Name":"INCLUDE_I2CLCD","Type":"autodefine","Condition":"[I2CLCD_enabled]>0"}
 //#define INCLUDE_NOKIALCD                    //{"Name":"INCLUDE_NOKIALCD","Type":"autodefine","Condition":"[ENABLED_NOKIALCD]>0"}
 //#define INCLUDE_OLED                        //{"Name":"INCLUDE_OLED","Type":"autodefine","Condition":"[ENABLED_OLEDLCD]>0"}
-//#define INCLUDE_MAX7221MATRIX               //{"Name":"INCLUDE_MAX7221MATRIX","Type":"autodefine","Condition":"[MAX7221_MATRIX_ENABLED]>0"}
+#define INCLUDE_MAX7221MATRIX               //{"Name":"INCLUDE_MAX7221MATRIX","Type":"autodefine","Condition":"[MAX7221_MATRIX_ENABLED]>0"}
 //#define INCLUDE_HT16K33_SINGLECOLORMATRIX   //{"Name":"INCLUDE_HT16K33_SINGLECOLORMATRIX","Type":"autodefine","Condition":"[ENABLE_ADA_HT16K33_SingleColorMatrix]>0"}
 //#define INCLUDE_74HC595_GEAR_DISPLAY        //{"Name":"INCLUDE_74HC595_GEAR_DISPLAY","Type":"autodefine","Condition":"[ENABLE_74HC595_GEAR_DISPLAY]>0"}
-//#define INCLUDE_MAX7221_MODULES             //{"Name":"INCLUDE_MAX7221_MODULES","Type":"autodefine","Condition":"[MAX7221_ENABLEDMODULES]>0"}
+#define INCLUDE_MAX7221_MODULES             //{"Name":"INCLUDE_MAX7221_MODULES","Type":"autodefine","Condition":"[MAX7221_ENABLEDMODULES]>0"}
 //#define INCLUDE_6c595_GEAR_DISPLAY          //{"Name":"INCLUDE_6c595_GEAR_DISPLAY ","Type":"autodefine","Condition":"[ENABLE_6C595_GEAR_DISPLAY]>0"}
 //#define INCLUDE_TACHOMETER                  //{"Name":"INCLUDE_TACHOMETER ","Type":"autodefine","Condition":"[ENABLE_TACHOMETER]>0"}
 //#define INCLUDE_BOOSTGAUGE                  //{"Name":"INCLUDE_BOOSTGAUGE ","Type":"autodefine","Condition":"[ENABLE_BOOSTGAUGE]>0"}
@@ -42,11 +42,13 @@
 //#define INCLUDE_SHAKEITMOTOMONSTER          //{"Name":"INCLUDE_SHAKEITMOTOMONSTER","Type":"autodefine","Condition":"[MOTOMONSTER_ENABLED]>0"}
 //#define INCLUDE_SHAKEITPWM                  //{"Name":"INCLUDE_SHAKEITPWM","Type":"autodefine","Condition":"[SHAKEITPWM_ENABLED_MOTORS]>0"}
 //#define INCLUDE_SHAKEITPWMFANS              //{"Name":"INCLUDE_SHAKEITPWMFANS","Type":"autodefine","Condition":"[SHAKEITPWMFANS_ENABLED_MOTORS]>0"}
+#if defined (__AVR_ATmega32U4__)
 //#define INCLUDE_GAMEPAD                     //{"Name":"INCLUDE_GAMEPAD","Type":"autodefine","Condition":"[ENABLE_MICRO_GAMEPAD]>0"}
-//#define INCLUDE_ENCODERS                    //{"Name":"INCLUDE_ENCODERS","Type":"autodefine","Condition":"[ENABLED_ENCODERS_COUNT]>0"}
-//#define INCLUDE_BUTTONS                     //{"Name":"INCLUDE_BUTTONS","Type":"autodefine","Condition":"[ENABLED_BUTTONS_COUNT]>0"}
-//#define INCLUDE_BUTTONMATRIX                //{"Name":"INCLUDE_BUTTONMATRIX","Type":"autodefine","Condition":"[ENABLED_BUTTONMATRIX]>0"}
-#define INCLUDE_DM163_MATRIX                //{"Name":"INCLUDE_DM163_MATRIX","Type":"autodefine","Condition":"[DM163_MATRIX_ENABLED]>0"}
+#endif
+//#define INCLUDE_ENCODERS                    //{"Name":"INCLUDE_ENCODERS","Type":"autodefine","Condition":"[ENABLED_ENCODERS_COUNT]>0","IsInput":true}
+//#define INCLUDE_BUTTONS                     //{"Name":"INCLUDE_BUTTONS","Type":"autodefine","Condition":"[ENABLED_BUTTONS_COUNT]>0","IsInput":true}
+//#define INCLUDE_BUTTONMATRIX                //{"Name":"INCLUDE_BUTTONMATRIX","Type":"autodefine","Condition":"[ENABLED_BUTTONMATRIX]>0","IsInput":true}
+//#define INCLUDE_DM163_MATRIX                //{"Name":"INCLUDE_DM163_MATRIX","Type":"autodefine","Condition":"[DM163_MATRIX_ENABLED]>0"}
 
 #include <avr/pgmspace.h>
 #include <EEPROM.h>
@@ -61,8 +63,8 @@
 #include "SHButton.h"
 
 // ----------------------------------------------------- HW SETTINGS, PLEASE REVIEW ALL -------------------------------------------
-#define DEVICE_NAME "SimHub Dash" //{"Group":"General","Name":"DEVICE_NAME","Title":"Device name,\r\n make sure to use a unique name when using multiple arduinos","DefaultValue":"SimHub Dash","Type":"string","Template":"#define DEVICE_NAME \"{0}\""}
-#define DEVICE_UNIQUE_ID "e0232ec2-ada3-41c5-9a56-40d17cb72fb0" //{"Name":"DEVICE_UNIQUE_ID","Type":"uniqueid"}
+#define DEVICE_NAME "AppleBox" //{"Group":"General","Name":"DEVICE_NAME","Title":"Device name,\r\n make sure to use a unique name when using multiple arduinos","DefaultValue":"SimHub Dash","Type":"string","Template":"#define DEVICE_NAME \"{0}\""}
+#define DEVICE_UNIQUE_ID "fc08763a-02f8-4041-af89-dd49a0dc03ba" //{"UniqueId":"fc08763a-02f8-4041-af89-dd49a0dc03ba","Name":"DEVICE_UNIQUE_ID","Type":"uniqueid"}
 
 #define ENABLE_MICRO_GAMEPAD 0           //{"Group":"GAMEPAD","Name":"ENABLE_MICRO_GAMEPAD","Title":"Enable arduino micro gamepad output for all the activated buttons/encoders","DefaultValue":"0","Type":"bool"}
 #define MICRO_GAMEPAD_ENCODERPRESSTIME 50 //{"Name":"MICRO_GAMEPAD_ENCODERPRESSTIME","Title":"Define how long (in milliseconds) the encoder related button will be hold after an encoder movement","DefaultValue":"50","Type":"int","Condition":"ENABLE_MICRO_GAMEPAD>0","Max":100}
@@ -165,11 +167,11 @@
 // http://www.dx.com/p/max7219-led-dot-matrix-digital-led-display-tube-module-cascade-391256
 // -------------------------------------------------------------------------------------------------------
 // 0 disabled, > 0 enabled
-#define MAX7221_ENABLEDMODULES 0 //{"Group":"MAX7221 7 Segments Modules","Name":"MAX7221_ENABLEDMODULES","Title":"MAX7219 / MAX7221 7 Segment modules connected \r\nMultiple modules can be cascaded connected module output to next module input","DefaultValue":"0","Type":"int","Max":8}
+#define MAX7221_ENABLEDMODULES 1 //{"Group":"MAX7221 7 Segments Modules","Name":"MAX7221_ENABLEDMODULES","Title":"MAX7219 / MAX7221 7 Segment modules connected \r\nMultiple modules can be cascaded connected module output to next module input","DefaultValue":"0","Type":"int","Max":8}
 #ifdef INCLUDE_MAX7221_MODULES
 #include "SHMAX72217Segment.h"
-#define MAX7221_DATA 3           //{"Name":"MAX7221_DATA","Title":"DATA (DIN) digital pin number","DefaultValue":"3","Type":"pin;MAX7221 7seg. DATA","Condition":"MAX7221_ENABLEDMODULES > 0"}
-#define MAX7221_CLK 5            //{"Name":"MAX7221_CLK","Title":"CLOCK (CLK) digital pin number","DefaultValue":"5","Type":"pin;MAX7221 7seg. CLK","Condition":"MAX7221_ENABLEDMODULES > 0"}
+#define MAX7221_DATA 2           //{"Name":"MAX7221_DATA","Title":"DATA (DIN) digital pin number","DefaultValue":"3","Type":"pin;MAX7221 7seg. DATA","Condition":"MAX7221_ENABLEDMODULES > 0"}
+#define MAX7221_CLK 3            //{"Name":"MAX7221_CLK","Title":"CLOCK (CLK) digital pin number","DefaultValue":"5","Type":"pin;MAX7221 7seg. CLK","Condition":"MAX7221_ENABLEDMODULES > 0"}
 #define MAX7221_LOAD 4           //{"Name":"MAX7221_LOAD","Title":"LOAD (LD) digital pin number","DefaultValue":"4","Type":"pin;MAX7221 7seg. LOAD/LD","Condition":"MAX7221_ENABLEDMODULES > 0"}
 SHMAX72217Segment shMAX72217Segment;
 #endif // INCLUDE_MAX7221_MODULES
@@ -178,12 +180,12 @@ SHMAX72217Segment shMAX72217Segment;
 // MAX7219 / MAX7221 Led Matrix module -----------------------------------------------------------------------------
 // http://www.dx.com/p/max7219-dot-matrix-module-w-5-dupont-lines-184854
 // -------------------------------------------------------------------------------------------------------
-#define MAX7221_MATRIX_ENABLED 0 //{"Group":"MAX7221 Led Matrix","Name":"MAX7221_MATRIX_ENABLED","Title":"MAX7221 led matrix enabled ","DefaultValue":"0","Type":"bool"}
+#define MAX7221_MATRIX_ENABLED 1 //{"Group":"MAX7221 Led Matrix","Name":"MAX7221_MATRIX_ENABLED","Title":"MAX7221 led matrix enabled ","DefaultValue":"0","Type":"bool"}
 #ifdef INCLUDE_MAX7221MATRIX
 #include "SHMatrixMAX7219.h"
-#define MAX7221_MATRIX_DATA 3    //{"Name":"MAX7221_MATRIX_DATA","Title":"DATA (DIN) digital pin number","DefaultValue":"3","Type":"pin;MAX7221 Matrix DATA","Condition":"MAX7221_MATRIX_ENABLED>0"}
-#define MAX7221_MATRIX_CLK 5     //{"Name":"MAX7221_MATRIX_CLK","Title":"CLOCK (CLK) digital pin number","DefaultValue":"5","Type":"pin;MAX7221 Matrix CLK","Condition":"MAX7221_MATRIX_ENABLED>0"}
-#define MAX7221_MATRIX_LOAD 4    //{"Name":"MAX7221_MATRIX_LOAD","Title":"LOAD (LD/CS) digital pin number","DefaultValue":"4","Type":"pin;MAX7221 Matrix LOAD/LD","Condition":"MAX7221_MATRIX_ENABLED>0"}
+#define MAX7221_MATRIX_DATA 2    //{"Name":"MAX7221_MATRIX_DATA","Title":"DATA (DIN) digital pin number","DefaultValue":"3","Type":"pin;MAX7221 Matrix DATA","Condition":"MAX7221_MATRIX_ENABLED>0"}
+#define MAX7221_MATRIX_CLK 3     //{"Name":"MAX7221_MATRIX_CLK","Title":"CLOCK (CLK) digital pin number","DefaultValue":"5","Type":"pin;MAX7221 Matrix CLK","Condition":"MAX7221_MATRIX_ENABLED>0"}
+#define MAX7221_MATRIX_LOAD 5    //{"Name":"MAX7221_MATRIX_LOAD","Title":"LOAD (LD/CS) digital pin number","DefaultValue":"4","Type":"pin;MAX7221 Matrix LOAD/LD","Condition":"MAX7221_MATRIX_ENABLED>0"}
 SHMatrixMAX7219 shMatrixMAX7219;
 #endif
 
@@ -209,10 +211,10 @@ SHMatrixHT16H33SingleColor shMatrixHT16H33SingleColor;
 // -------------------------------------------------------------------------------------------------------
 // WS2812b chained RGBLEDS count
 // 0 disabled, > 0 enabled
-#define WS2812B_RGBLEDCOUNT 0        //{"Group":"WS2812B RGB Leds","Name":"WS2812B_RGBLEDCOUNT","Title":"WS2812B RGB leds count","DefaultValue":"0","Type":"int","Max":150}
+#define WS2812B_RGBLEDCOUNT 7        //{"Group":"WS2812B RGB Leds","Name":"WS2812B_RGBLEDCOUNT","Title":"WS2812B RGB leds count","DefaultValue":"0","Type":"int","Max":150}
 #ifdef INCLUDE_WS2812B
 
-#define WS2812B_DATAPIN 6            //{"Name":"WS2812B_DATAPIN","Title":"Data (DIN) digital pin number","DefaultValue":"6","Type":"pin;WS2812B LEDS DATA","Condition":"WS2812B_RGBLEDCOUNT>0"}
+#define WS2812B_DATAPIN 11           //{"Name":"WS2812B_DATAPIN","Title":"Data (DIN) digital pin number","DefaultValue":"6","Type":"pin;WS2812B LEDS DATA","Condition":"WS2812B_RGBLEDCOUNT>0"}
 #define WS2812B_RGBENCODING 0        //{"Name":"WS2812B_RGBENCODING","Title":"WS2812B RGB encoding\r\nSet to 0 for GRB, 1 for RGB encoding, 2 for BRG encoding","DefaultValue":"0","Type":"list","Condition":"WS2812B_RGBLEDCOUNT>0","ListValues":"0,GRB encoding;1,RGB encoding;2,BRG encoding"}
 #define WS2812B_RIGHTTOLEFT 0        //{"Name":"WS2812B_RIGHTTOLEFT","Title":"Reverse led order ","DefaultValue":"0","Type":"bool","Condition":"WS2812B_RGBLEDCOUNT>0"}
 #define WS2812B_TESTMODE 0           //{"Name":"WS2812B_TESTMODE","Title":"TESTING MODE : Light up all configured leds (in red color) at arduino startup\r\nIt will clear after simhub connection","DefaultValue":"0","Type":"bool","Condition":"WS2812B_RGBLEDCOUNT>0"}
@@ -268,12 +270,12 @@ SHRGBLedsWS2801 shRGBLedsWS2801;
 // -------------------------------------------------------------------------------------------------------
 // WS2812b chained RGBLEDS count
 // 0 disabled, > 0 enabled
-#define WS2812B_MATRIX_ENABLED 0 //{"Group":"WS2812B RGB Matrix","Name":"WS2812B_MATRIX_ENABLED","Title":"DEPRECATED, DO NOT USE","DefaultValue":"0","Type":"bool"}
+#define WS2812B_MATRIX_ENABLED 0 //{"Group":"WS2812B RGB Matrix","Name":"WS2812B_MATRIX_ENABLED","Title":"Enable WS2812B 8x8 matrix","DefaultValue":"0","Type":"bool"}
 
 #ifdef INCLUDE_WS2812B_MATRIX
-#include <Adafruit_NeoPixel.h>
 #define WS2812B_MATRIX_DATAPIN 6 //{"Name":"WS2812B_MATRIX_DATAPIN","Title":"Data (DIN) digital pin number","DefaultValue":"6","Type":"pin;WS2812B Matrix data","Condition":"WS2812B_MATRIX_ENABLED>0"}
-Adafruit_NeoPixel WS2812B_matrix = Adafruit_NeoPixel(64, WS2812B_MATRIX_DATAPIN, NEO_GRB + NEO_KHZ800);
+#include "SHRGBMatrixNeoPixelFastLed.h"
+SHRGBMatrixNeoPixelFastLed shRGBMatrixWS2812B;
 #endif
 
 // -------------------------------------------------------------------------------------------------------
@@ -281,14 +283,11 @@ Adafruit_NeoPixel WS2812B_matrix = Adafruit_NeoPixel(64, WS2812B_MATRIX_DATAPIN,
 // https://www.sunfounder.com/full-color-rgb-led-matrix-driver-shield-rgb-matrix-screen.html
 // -------------------------------------------------------------------------------------------------------
 
-#define DM163_MATRIX_ENABLED 1 //{"Group":"DM163 RGB Matrix","Name":"DM163_MATRIX_ENABLED","Title":"DEPRECATED, DO NOT USE","DefaultValue":"0","Type":"bool"}
+#define DM163_MATRIX_ENABLED 0 //{"Group":"DM163 RGB Matrix","Name":"DM163_MATRIX_ENABLED","Title":"Enable DM163 8x8 (Sunfounder, colorduino, Iflag ....) matrix","DefaultValue":"0","Type":"bool"}
 
 #ifdef INCLUDE_DM163_MATRIX
-#include <Colorduino.h>
-//#include "HCColorDuino.h"
-
-/* Create an instance of the library */
-//HCColorDuino HCColorDuino;
+#include "SHRGBLedsDM163.h"
+SHRGBLedsDM163 shRGBLedsDM163;
 #endif
 
 // -------------------------------------------------------------------------------------------------------
@@ -639,15 +638,26 @@ SHShakeitPWM shShakeitPWM;
 #define SHAKEITPWMFANS_O1 9             //{"Name":"SHAKEITPWMFANS_O1","Title":"PWM Output 1 pin","DefaultValue":"9","Type":"pin;ShakeIt PWM Fan 1","Condition":"SHAKEITPWMFANS_ENABLED_MOTORS>=1"}
 #define SHAKEITPWMFANS_MIN_OUTPUT_O1 0  //{"Name":"SHAKEITPWMFANS_MIN_OUTPUT_O1","Title":"PWM Output 1 min (lower values will disable output)","DefaultValue":"0","Type":"int","Condition":"SHAKEITPWMFANS_ENABLED_MOTORS>=1","Max":255}
 #define SHAKEITPWMFANS_MAX_OUTPUT_O1 255 //{"Name":"SHAKEITPWMFANS_MAX_OUTPUT_O1","Title":"PWM Output 1 max","DefaultValue":"255","Type":"int","Condition":"SHAKEITPWMFANS_ENABLED_MOTORS>=1","Max":255}
+#define SHAKEITPWMFANS_RELAY_PIN_01 4   //{"Name":"SHAKEITPWMFANS_RELAY_PIN_01","Title":"PWM Output 1 optional on/off relay pin","DefaultValue":"4","Type":"pin;PWN FAN 1 relay","Condition":"SHAKEITPWMFANS_ENABLED_MOTORS>=1","Min":-1}
+#define SHAKEITPWMFANS_RELAY_DELAY_01 2000 //{"Name":"SHAKEITPWMFANS_RELAY_DELAY_01","Title":"PWM Output 1 optional relay off delay (ms)","DefaultValue":"2000","Type":"int","Condition":"SHAKEITPWMFANS_ENABLED_MOTORS>=1 && SHAKEITPWMFANS_RELAY_PIN_01 >0"}
+
 #define SHAKEITPWMFANS_O2 10            //{"Name":"SHAKEITPWMFANS_O2","Title":"PWM Output 2 pin","DefaultValue":"10","Type":"pin;ShakeIt PWM Fan 2","Condition":"SHAKEITPWMFANS_ENABLED_MOTORS>=2"}
 #define SHAKEITPWMFANS_MIN_OUTPUT_O2 0  //{"Name":"SHAKEITPWMFANS_MIN_OUTPUT_O2","Title":"PWM Output 2 min (lower values will disable output)","DefaultValue":"0","Type":"int","Condition":"SHAKEITPWMFANS_ENABLED_MOTORS>=2","Max":255}
 #define SHAKEITPWMFANS_MAX_OUTPUT_O2 255 //{"Name":"SHAKEITPWMFANS_MAX_OUTPUT_O2","Title":"PWM Output 2 max","DefaultValue":"255","Type":"int","Condition":"SHAKEITPWMFANS_ENABLED_MOTORS>=2","Max":255}
+#define SHAKEITPWMFANS_RELAY_PIN_02 5   //{"Name":"SHAKEITPWMFANS_RELAY_PIN_02","Title":"PWM Output 2 optional on/off relay pin","DefaultValue":"5","Type":"pin;PWN FAN 2 relay","Condition":"SHAKEITPWMFANS_ENABLED_MOTORS>=2","Min":-1}
+#define SHAKEITPWMFANS_RELAY_DELAY_02 2000 //{"Name":"SHAKEITPWMFANS_RELAY_DELAY_02","Title":"PWM Output 2 optional relay off delay (ms)","DefaultValue":"2000","Type":"int","Condition":"SHAKEITPWMFANS_ENABLED_MOTORS>=2 && SHAKEITPWMFANS_RELAY_PIN_02 >0"}
+
 #define SHAKEITPWMFANS_O3 11            //{"Name":"SHAKEITPWMFANS_O3","Title":"PWM Output 3 pin","DefaultValue":"11","Type":"pin;ShakeIt PWM Fan 3","Condition":"SHAKEITPWMFANS_ENABLED_MOTORS>=3"}
 #define SHAKEITPWMFANS_MIN_OUTPUT_O3 0  //{"Name":"SHAKEITPWMFANS_MIN_OUTPUT_O3","Title":"PWM Output 3 min (lower values will disable output)","DefaultValue":"0","Type":"int","Condition":"SHAKEITPWMFANS_ENABLED_MOTORS>=3","Max":255}
 #define SHAKEITPWMFANS_MAX_OUTPUT_O3 255 //{"Name":"SHAKEITPWMFANS_MAX_OUTPUT_O3","Title":"PWM Output 3 max","DefaultValue":"255","Type":"int","Condition":"SHAKEITPWMFANS_ENABLED_MOTORS>=3","Max":255}
+#define SHAKEITPWMFANS_RELAY_PIN_03 6   //{"Name":"SHAKEITPWMFANS_RELAY_PIN_03","Title":"PWM Output 3 optional on/off relay pin","DefaultValue":"6","Type":"pin;PWN FAN 3 relay","Condition":"SHAKEITPWMFANS_ENABLED_MOTORS>=3","Min":-1}
+#define SHAKEITPWMFANS_RELAY_DELAY_03 2000 //{"Name":"SHAKEITPWMFANS_RELAY_DELAY_03","Title":"PWM Output 3 optional relay off delay (ms)","DefaultValue":"2000","Type":"int","Condition":"SHAKEITPWMFANS_ENABLED_MOTORS>=3 && SHAKEITPWMFANS_RELAY_PIN_03 >0"}
+
 #define SHAKEITPWMFANS_O4 10            //{"Name":"SHAKEITPWMFANS_O4","Title":"PWM Output 4 pin","DefaultValue":"10","Type":"pin;ShakeIt PWM Fan 4","Condition":"SHAKEITPWMFANS_ENABLED_MOTORS>=4"}
 #define SHAKEITPWMFANS_MIN_OUTPUT_O4 0  //{"Name":"SHAKEITPWMFANS_MIN_OUTPUT_O4","Title":"PWM Output 4 min (lower values will disable output)","DefaultValue":"0","Type":"int","Condition":"SHAKEITPWMFANS_ENABLED_MOTORS>=4","Max":255}
 #define SHAKEITPWMFANS_MAX_OUTPUT_O4 255 //{"Name":"SHAKEITPWMFANS_MAX_OUTPUT_O4","Title":"PWM Output 4 max","DefaultValue":"255","Type":"int","Condition":"SHAKEITPWMFANS_ENABLED_MOTORS>=4","Max":255}
+#define SHAKEITPWMFANS_RELAY_PIN_04 7   //{"Name":"SHAKEITPWMFANS_RELAY_PIN_04","Title":"PWM Output 4 optional on/off relay pin","DefaultValue":"7","Type":"pin;PWN FAN 4 relay","Condition":"SHAKEITPWMFANS_ENABLED_MOTORS>=4","Min":-1}
+#define SHAKEITPWMFANS_RELAY_DELAY_04 2000 //{"Name":"SHAKEITPWMFANS_RELAY_DELAY_04","Title":"PWM Output 4 optional relay off delay (ms)","DefaultValue":"2000","Type":"int","Condition":"SHAKEITPWMFANS_ENABLED_MOTORS>=4 && SHAKEITPWMFANS_RELAY_PIN_04 >0"}
 
 #include "SHShakeitPWMFans.h"
 SHShakeitPWMFans shShakeitPWMFans;
@@ -916,9 +926,10 @@ void buttonMatrixStatusChanged(int buttonId, byte Status) {
 
 void setup()
 {
-//#ifdef INCLUDE_TEMPGAUGE
-//	shTEMPPIN.SetValue((int)80);
-//#endif
+	//#ifdef INCLUDE_TEMPGAUGE
+	//	shTEMPPIN.SetValue((int)80);
+	//#endif
+
 #ifdef INCLUDE_FUELGAUGE
 	shFUELPIN.SetValue((int)80);
 #endif
@@ -957,18 +968,14 @@ void setup()
 
 #ifdef INCLUDE_WS2812B_MATRIX
 	if (WS2812B_MATRIX_ENABLED > 0) {
-		WS2812B_matrix.begin();
-		WS2812B_matrix.show();
+		shRGBMatrixWS2812B.begin(64, false, false);
+
 	}
 #endif
 #ifdef INCLUDE_DM163_MATRIX
 	if (DM163_MATRIX_ENABLED > 0) {
-		Colorduino.Init(); // initialize the board
-		unsigned char balance[3] = { 36, 45, 63 };
-		Colorduino.SetWhiteBal(balance);
-		//HCColorDuino.RGBColourCorrection(25, 63, 63);
+		shRGBLedsDM163.begin(64, false, false);
 	}
-
 #endif
 
 #ifdef INCLUDE_WS2801
@@ -1073,6 +1080,9 @@ void setup()
 	shShakeitPWMFans.begin(SHAKEITPWMFANS_ENABLED_MOTORS, SHAKEITPWMFANS_O1, SHAKEITPWMFANS_O2, SHAKEITPWMFANS_O3, SHAKEITPWMFANS_O4);
 	shShakeitPWMFans.setMin(SHAKEITPWMFANS_MIN_OUTPUT_O1, SHAKEITPWMFANS_MIN_OUTPUT_O2, SHAKEITPWMFANS_MIN_OUTPUT_O3, SHAKEITPWMFANS_MIN_OUTPUT_O4);
 	shShakeitPWMFans.setMax(SHAKEITPWMFANS_MAX_OUTPUT_O1, SHAKEITPWMFANS_MAX_OUTPUT_O2, SHAKEITPWMFANS_MAX_OUTPUT_O3, SHAKEITPWMFANS_MAX_OUTPUT_O4);
+	shShakeitPWMFans.setRelays(SHAKEITPWMFANS_RELAY_PIN_01, SHAKEITPWMFANS_RELAY_PIN_02, SHAKEITPWMFANS_RELAY_PIN_03, SHAKEITPWMFANS_RELAY_PIN_04,
+		SHAKEITPWMFANS_RELAY_DELAY_01, SHAKEITPWMFANS_RELAY_DELAY_02, SHAKEITPWMFANS_RELAY_DELAY_03, SHAKEITPWMFANS_RELAY_DELAY_04
+	);
 #endif
 
 #ifdef  INCLUDE_ENCODERS
@@ -1140,6 +1150,8 @@ void UpdateGamepadEncodersState(bool sendState) {
 #endif
 
 char loop_opt;
+unsigned long lastSerialActivity = 0;
+
 void loop() {
 #ifdef INCLUDE_SHAKEITL298N
 	shShakeitL298N.safetyCheck();
@@ -1169,6 +1181,7 @@ void loop() {
 	if (FlowSerialAvailable() > 0) {
 		if (FlowSerialTimedRead() == MESSAGE_HEADER)
 		{
+			lastSerialActivity = millis();
 			// Read command
 			loop_opt = FlowSerialTimedRead();
 
@@ -1206,5 +1219,9 @@ void loop() {
 				else if (xaction == F("encoderscount")) Command_EncodersCount();
 			}
 		}
+	}
+
+	if (millis() - lastSerialActivity > 5000) {
+		Command_Shutdown();
 	}
 }

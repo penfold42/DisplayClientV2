@@ -11,6 +11,9 @@ private:
 	byte pins[4];
 	byte mins[4];
 	byte maxs[4];
+	int relays[4];
+	unsigned long offSince[4];
+	unsigned long offDelay[4] = { 2000,2000,2000,2000 };
 	byte enabledOutputs;
 public:
 	uint8_t motorCount() {
@@ -21,8 +24,17 @@ public:
 		return "PWMFan";
 	}
 
-	void begin(byte pEnabledOutputs, byte pPin01, byte pPin02, byte	pPin03, byte pPin04) {
+	void safetyStop() override {
+		SHShakeitBase::safetyStop();
 
+		for (int i = 0; i < enabledOutputs; i++) {
+			if (relays[i] > 0) {
+				digitalWrite(relays[i], LOW);
+			}
+		}
+	}
+
+	void begin(byte pEnabledOutputs, byte pPin01, byte pPin02, byte	pPin03, byte pPin04) {
 		Timer1.initialize(40);
 
 		pins[0] = pPin01;
@@ -49,6 +61,23 @@ public:
 		maxs[3] = pMax04;
 	}
 
+	void setRelays(int r01, int r02, int	r03, int r04, int d01, int d02, int	d03, int d04) {
+		relays[0] = r01;
+		relays[1] = r02;
+		relays[2] = r03;
+		relays[3] = r04;
+		offDelay[0] = d01;
+		offDelay[1] = d02;
+		offDelay[2] = d03;
+		offDelay[3] = d04;
+		for (int i = 0; i < enabledOutputs; i++) {
+			if (relays[i] > 0) {
+				pinMode(relays[i], OUTPUT);
+			}
+			offSince[i] = 0;
+		}
+	}
+
 protected:
 	void setMotorOutput(uint8_t motorIdx, uint8_t value) {
 		double value2 = value;
@@ -60,7 +89,23 @@ protected:
 		}
 
 		Timer1.pwm(pins[motorIdx], (int)(((float)value2 / 255.0) * 1023.0));
-		
+
+		if (relays[motorIdx] > 0) {
+			if (value2 > 0) {
+				digitalWrite(relays[motorIdx], HIGH);
+				offSince[motorIdx] = 0;
+			}
+			else {
+				if (offSince[motorIdx] == 0) {
+					offSince[motorIdx] = millis();
+				}
+
+				if ((millis() - offSince[motorIdx]) > offDelay[motorIdx]) {
+					digitalWrite(relays[motorIdx], LOW);
+					offSince[motorIdx] = 0;
+				}
+			}
+		}
 	}
 };
 

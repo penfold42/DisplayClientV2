@@ -11,12 +11,16 @@ public:
 	virtual uint8_t motorCount();
 	virtual String providerName();
 
+	virtual void safetyStop() {
+		uint8_t motorcount = motorCount();
+		for (int m = 0; m < motorcount; m++) {
+			setMotorOutput(m, 0);
+		}
+	}
+
 	void safetyCheck() {
 		if (millis() - lastRead > SHShakeitBaseSafetyDelay && lastRead > 0) {
-			uint8_t motorcount = motorCount();
-			for (int m = 0; m < motorcount; m++) {
-				setMotorOutput(m, 0);
-			}
+			safetyStop();
 			lastRead = 0;
 		}
 	}

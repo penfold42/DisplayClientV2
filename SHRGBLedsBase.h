@@ -19,6 +19,13 @@ public:
 
 	virtual void show();
 
+	void clear() {
+		for (int j = 0; j < _maxLeds; j++) {
+			setPixelColor(j, 0, 0, 0);
+		}
+		show();
+	}
+
 	void read() {
 		uint8_t r;
 		uint8_t g;

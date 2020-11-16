@@ -127,6 +127,7 @@ void Command_ExpandedCommandsList() {
 	FlowSerialPrintLn("encoders");
 #endif
 	FlowSerialPrintLn("mcutype");
+	FlowSerialPrintLn("keepalive");
 	FlowSerialPrintLn();
 	FlowSerialFlush();
 }
@@ -253,6 +254,20 @@ void Command_Motors() {
 #endif
 }
 
+void Command_Shutdown() {
+#if	defined(INCLUDE_DM163_MATRIX)
+	if (DM163_MATRIX_ENABLED > 0) {
+		shRGBLedsDM163.clear();
+	}
+#endif
+
+#if defined(INCLUDE_WS2812B_MATRIX) 
+	if (WS2812B_MATRIX_ENABLED > 0) {
+		shRGBMatrixWS2812B.clear();
+	}
+#endif
+}
+
 void Command_7SegmentsData() {
 
 #ifdef INCLUDE_TM1637
@@ -317,27 +332,17 @@ void Command_RGBLEDSData()
 }
 
 void Command_RGBMatrixData() {
-#if defined(INCLUDE_WS2812B_MATRIX) || defined(INCLUDE_DM163_MATRIX)
-	for (uint8_t j = 0; j < 64; j++) {
-		uint8_t r = FlowSerialTimedRead();
-		uint8_t g = FlowSerialTimedRead();
-		uint8_t b = FlowSerialTimedRead();
-
-#if defined( INCLUDE_WS2812B_MATRIX)
-		WS2812B_matrix.setPixelColor(j, r, g, b);
-#endif
-#if defined(INCLUDE_DM163_MATRIX)
-		Colorduino.SetPixel(j % 8, (int)j / 8, r, g, b);
-#endif
+#if	defined(INCLUDE_DM163_MATRIX)
+	if (DM163_MATRIX_ENABLED > 0) {
+		shRGBLedsDM163.read();
 	}
-#if defined( INCLUDE_WS2812B_MATRIX)
-	WS2812B_matrix.show();
-#endif
-#if defined( INCLUDE_DM163_MATRIX)
-	Colorduino.FlipPage();
-#endif
 #endif
 
+#if defined(INCLUDE_WS2812B_MATRIX) 
+	if (WS2812B_MATRIX_ENABLED > 0) {
+		shRGBMatrixWS2812B.read();
+	}
+#endif
 
 	// Acq !
 	FlowSerialWrite(0x15);
