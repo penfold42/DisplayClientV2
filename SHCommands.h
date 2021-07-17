@@ -192,23 +192,22 @@ void Command_Features() {
 	}
 #endif
 
-#if defined(INCLUDE_SHAKEITADASHIELD) || defined(INCLUDE_SHAKEITDKSHIELD) || defined(INCLUDE_SHAKEITL298N) || defined(INCLUDE_SHAKEITMOTOMONSTER) || defined(INCLUDE_SHAKEITPWM)  || defined(INCLUDE_SHAKEITPWMFANS)
-	// Afafuit motorshields
+#if defined(INCLUDE_SHAKEIDUALVNH5019) || defined(INCLUDE_SHAKEITADASHIELD) || defined(INCLUDE_SHAKEITDKSHIELD) || defined(INCLUDE_SHAKEITL298N) || defined(INCLUDE_SHAKEITMOTOMONSTER) || defined(INCLUDE_SHAKEITPWM)  || defined(INCLUDE_SHAKEITPWMFANS)
 	FlowSerialPrint("V");
-#endif // INCLUDE_SHAKEITADASHIELD
+#endif 
 
 	FlowSerialPrint("\n");
 	FlowSerialFlush();
 }
 
 void Command_Motors() {
-#if defined(INCLUDE_SHAKEITADASHIELD) || defined(INCLUDE_SHAKEITDKSHIELD) || defined(INCLUDE_SHAKEITL298N) || defined(INCLUDE_SHAKEITMOTOMONSTER) || defined(INCLUDE_SHAKEITPWM) || defined(INCLUDE_SHAKEITPWMFANS)
+#if defined(INCLUDE_SHAKEIDUALVNH5019) || defined(INCLUDE_SHAKEITADASHIELD) || defined(INCLUDE_SHAKEITDKSHIELD) || defined(INCLUDE_SHAKEITL298N) || defined(INCLUDE_SHAKEITMOTOMONSTER) || defined(INCLUDE_SHAKEITPWM) || defined(INCLUDE_SHAKEITPWMFANS)
 
 	char action = FlowSerialTimedRead();
 	// Count
 	if (action == 'C') {
 		FlowSerialWrite(255);
-		FlowSerialWrite(ADAMOTORS_SHIELDSCOUNT * 4 + min(1, DKMOTOR_SHIELDSCOUNT) * 4 + min(1, L98NMOTORS_ENABLED) * 2 + min(1, MOTOMONSTER_ENABLED) * 2 + min(4, SHAKEITPWM_ENABLED_MOTORS) + min(4, SHAKEITPWMFANS_ENABLED_MOTORS));
+		FlowSerialWrite(min(1, DUALVNH5019_ENABLED) * 2 + ADAMOTORS_SHIELDSCOUNT * 4 + min(1, DKMOTOR_SHIELDSCOUNT) * 4 + min(1, L98NMOTORS_ENABLED) * 2 + min(1, MOTOMONSTER_ENABLED) * 2 + min(4, SHAKEITPWM_ENABLED_MOTORS) + min(4, SHAKEITPWMFANS_ENABLED_MOTORS));
 
 #ifdef  INCLUDE_SHAKEITADASHIELD
 		FlowSerialPrint(shShakeitAdaMotorShieldV2.providerName() + ";");
@@ -221,6 +220,9 @@ void Command_Motors() {
 #endif
 #ifdef INCLUDE_SHAKEITMOTOMONSTER
 		FlowSerialPrint(shShakeitMotoMonster.providerName() + ";");
+#endif
+#ifdef INCLUDE_SHAKEIDUALVNH5019
+		FlowSerialPrint(shShakeitDualVNH5019.providerName() + ";");
 #endif
 #ifdef INCLUDE_SHAKEITPWM
 		FlowSerialPrint(shShakeitPWM.providerName() + ";");
@@ -243,6 +245,9 @@ void Command_Motors() {
 #endif
 #ifdef INCLUDE_SHAKEITMOTOMONSTER
 		shShakeitMotoMonster.read();
+#endif
+#ifdef INCLUDE_SHAKEIDUALVNH5019
+		shShakeitDualVNH5019.read();
 #endif
 #ifdef INCLUDE_SHAKEITPWM
 		shShakeitPWM.read();

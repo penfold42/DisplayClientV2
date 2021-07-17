@@ -16,7 +16,7 @@
 
 //#define INCLUDE_TM1638                      //{"Name":"INCLUDE_TM1638","Type":"autodefine","Condition":"[TM1638_ENABLEDMODULES]>0"}
 //#define INCLUDE_WS2801                      //{"Name":"INCLUDE_WS2801","Type":"autodefine","Condition":"[WS2801_RGBLEDCOUNT]>0"}
-#define INCLUDE_WS2812B                     //{"Name":"INCLUDE_WS2812B","Type":"autodefine","Condition":"[WS2812B_RGBLEDCOUNT]>0"}
+//#define INCLUDE_WS2812B                     //{"Name":"INCLUDE_WS2812B","Type":"autodefine","Condition":"[WS2812B_RGBLEDCOUNT]>0"}
 //#define INCLUDE_PL9823                      //{"Name":"INCLUDE_PL9823","Type":"autodefine","Condition":"[PL9823_RGBLEDCOUNT]>0"}
 //#define INCLUDE_WS2812B_MATRIX              //{"Name":"INCLUDE_WS2812B_MATRIX","Type":"autodefine","Condition":"[WS2812B_MATRIX_ENABLED]>0"}
 //#define INCLUDE_LEDBACKPACK                 //{"Name":"INCLUDE_LEDBACKPACK","Type":"autodefine","Condition":"[ENABLE_ADA_HT16K33_7SEGMENTS]>0 || [ENABLE_ADA_HT16K33_BiColorMatrix]>0"}
@@ -25,10 +25,10 @@
 //#define INCLUDE_I2CLCD                      //{"Name":"INCLUDE_I2CLCD","Type":"autodefine","Condition":"[I2CLCD_enabled]>0"}
 //#define INCLUDE_NOKIALCD                    //{"Name":"INCLUDE_NOKIALCD","Type":"autodefine","Condition":"[ENABLED_NOKIALCD]>0"}
 //#define INCLUDE_OLED                        //{"Name":"INCLUDE_OLED","Type":"autodefine","Condition":"[ENABLED_OLEDLCD]>0"}
-#define INCLUDE_MAX7221MATRIX               //{"Name":"INCLUDE_MAX7221MATRIX","Type":"autodefine","Condition":"[MAX7221_MATRIX_ENABLED]>0"}
+//#define INCLUDE_MAX7221MATRIX               //{"Name":"INCLUDE_MAX7221MATRIX","Type":"autodefine","Condition":"[MAX7221_MATRIX_ENABLED]>0"}
 //#define INCLUDE_HT16K33_SINGLECOLORMATRIX   //{"Name":"INCLUDE_HT16K33_SINGLECOLORMATRIX","Type":"autodefine","Condition":"[ENABLE_ADA_HT16K33_SingleColorMatrix]>0"}
 //#define INCLUDE_74HC595_GEAR_DISPLAY        //{"Name":"INCLUDE_74HC595_GEAR_DISPLAY","Type":"autodefine","Condition":"[ENABLE_74HC595_GEAR_DISPLAY]>0"}
-#define INCLUDE_MAX7221_MODULES             //{"Name":"INCLUDE_MAX7221_MODULES","Type":"autodefine","Condition":"[MAX7221_ENABLEDMODULES]>0"}
+//#define INCLUDE_MAX7221_MODULES             //{"Name":"INCLUDE_MAX7221_MODULES","Type":"autodefine","Condition":"[MAX7221_ENABLEDMODULES]>0"}
 //#define INCLUDE_6c595_GEAR_DISPLAY          //{"Name":"INCLUDE_6c595_GEAR_DISPLAY ","Type":"autodefine","Condition":"[ENABLE_6C595_GEAR_DISPLAY]>0"}
 //#define INCLUDE_TACHOMETER                  //{"Name":"INCLUDE_TACHOMETER ","Type":"autodefine","Condition":"[ENABLE_TACHOMETER]>0"}
 //#define INCLUDE_BOOSTGAUGE                  //{"Name":"INCLUDE_BOOSTGAUGE ","Type":"autodefine","Condition":"[ENABLE_BOOSTGAUGE]>0"}
@@ -40,13 +40,23 @@
 //#define INCLUDE_SHAKEITDKSHIELD             //{"Name":"INCLUDE_SHAKEITDKSHIELD ","Type":"autodefine","Condition":"[DKMOTOR_SHIELDSCOUNT]>0"}
 //#define INCLUDE_SHAKEITL298N                //{"Name":"INCLUDE_SHAKEITL298N","Type":"autodefine","Condition":"[L98NMOTORS_ENABLED]>0"}
 //#define INCLUDE_SHAKEITMOTOMONSTER          //{"Name":"INCLUDE_SHAKEITMOTOMONSTER","Type":"autodefine","Condition":"[MOTOMONSTER_ENABLED]>0"}
+//#define INCLUDE_SHAKEIDUALVNH5019           //{"Name":"INCLUDE_SHAKEIDUALVNH5019","Type":"autodefine","Condition":"[DUALVNH5019_ENABLED]>0"}
+
 //#define INCLUDE_SHAKEITPWM                  //{"Name":"INCLUDE_SHAKEITPWM","Type":"autodefine","Condition":"[SHAKEITPWM_ENABLED_MOTORS]>0"}
 //#define INCLUDE_SHAKEITPWMFANS              //{"Name":"INCLUDE_SHAKEITPWMFANS","Type":"autodefine","Condition":"[SHAKEITPWMFANS_ENABLED_MOTORS]>0"}
 #if defined (__AVR_ATmega32U4__)
-//#define INCLUDE_GAMEPAD                     //{"Name":"INCLUDE_GAMEPAD","Type":"autodefine","Condition":"[ENABLE_MICRO_GAMEPAD]>0"}
+#define INCLUDE_GAMEPAD                     //{"Name":"INCLUDE_GAMEPAD","Type":"autodefine","Condition":"[ENABLE_MICRO_GAMEPAD]>0"}
 #endif
+//#define INCLUDE_GAMEPADAXIS                 //{"Name":"INCLUDE_GAMEPADAXIS","Type":"autodefine","Condition":"[GAMEPAD_AXIS_01_ENABLED]>0 || [GAMEPAD_AXIS_02_ENABLED]>0 || [GAMEPAD_AXIS_03_ENABLED]>0"}
+
+#ifdef INCLUDE_GAMEPADAXIS
+#ifndef  INCLUDE_GAMEPAD
+#error Gamepad option must be enabled in order to use analog axis.
+#endif // ! INCLUDE_GAMEPAD
+#endif
+
 //#define INCLUDE_ENCODERS                    //{"Name":"INCLUDE_ENCODERS","Type":"autodefine","Condition":"[ENABLED_ENCODERS_COUNT]>0","IsInput":true}
-//#define INCLUDE_BUTTONS                     //{"Name":"INCLUDE_BUTTONS","Type":"autodefine","Condition":"[ENABLED_BUTTONS_COUNT]>0","IsInput":true}
+#define INCLUDE_BUTTONS                     //{"Name":"INCLUDE_BUTTONS","Type":"autodefine","Condition":"[ENABLED_BUTTONS_COUNT]>0","IsInput":true}
 //#define INCLUDE_BUTTONMATRIX                //{"Name":"INCLUDE_BUTTONMATRIX","Type":"autodefine","Condition":"[ENABLED_BUTTONMATRIX]>0","IsInput":true}
 //#define INCLUDE_DM163_MATRIX                //{"Name":"INCLUDE_DM163_MATRIX","Type":"autodefine","Condition":"[DM163_MATRIX_ENABLED]>0"}
 
@@ -63,10 +73,10 @@
 #include "SHButton.h"
 
 // ----------------------------------------------------- HW SETTINGS, PLEASE REVIEW ALL -------------------------------------------
-#define DEVICE_NAME "AppleBox" //{"Group":"General","Name":"DEVICE_NAME","Title":"Device name,\r\n make sure to use a unique name when using multiple arduinos","DefaultValue":"SimHub Dash","Type":"string","Template":"#define DEVICE_NAME \"{0}\""}
-#define DEVICE_UNIQUE_ID "fc08763a-02f8-4041-af89-dd49a0dc03ba" //{"UniqueId":"fc08763a-02f8-4041-af89-dd49a0dc03ba","Name":"DEVICE_UNIQUE_ID","Type":"uniqueid"}
+#define DEVICE_NAME "SimHub Dash" //{"Group":"General","Name":"DEVICE_NAME","Title":"Device name,\r\n make sure to use a unique name when using multiple arduinos","DefaultValue":"SimHub Dash","Type":"string","Template":"#define DEVICE_NAME \"{0}\""}
+#define DEVICE_UNIQUE_ID "20524227-d46a-488d-883a-d783e59bc5e9" //{"UniqueId":"20524227-d46a-488d-883a-d783e59bc5e9","Name":"DEVICE_UNIQUE_ID","Type":"uniqueid"}
 
-#define ENABLE_MICRO_GAMEPAD 0           //{"Group":"GAMEPAD","Name":"ENABLE_MICRO_GAMEPAD","Title":"Enable arduino micro gamepad output for all the activated buttons/encoders","DefaultValue":"0","Type":"bool"}
+#define ENABLE_MICRO_GAMEPAD 1           //{"Group":"GAMEPAD","Name":"ENABLE_MICRO_GAMEPAD","Title":"Enable arduino micro gamepad output for all the activated buttons/encoders","DefaultValue":"0","Type":"bool"}
 #define MICRO_GAMEPAD_ENCODERPRESSTIME 50 //{"Name":"MICRO_GAMEPAD_ENCODERPRESSTIME","Title":"Define how long (in milliseconds) the encoder related button will be hold after an encoder movement","DefaultValue":"50","Type":"int","Condition":"ENABLE_MICRO_GAMEPAD>0","Max":100}
 
 // -------------------------------------------------------------------------------------------------------
@@ -167,11 +177,11 @@
 // http://www.dx.com/p/max7219-led-dot-matrix-digital-led-display-tube-module-cascade-391256
 // -------------------------------------------------------------------------------------------------------
 // 0 disabled, > 0 enabled
-#define MAX7221_ENABLEDMODULES 1 //{"Group":"MAX7221 7 Segments Modules","Name":"MAX7221_ENABLEDMODULES","Title":"MAX7219 / MAX7221 7 Segment modules connected \r\nMultiple modules can be cascaded connected module output to next module input","DefaultValue":"0","Type":"int","Max":8}
+#define MAX7221_ENABLEDMODULES 0 //{"Group":"MAX7221 7 Segments Modules","Name":"MAX7221_ENABLEDMODULES","Title":"MAX7219 / MAX7221 7 Segment modules connected \r\nMultiple modules can be cascaded connected module output to next module input","DefaultValue":"0","Type":"int","Max":8}
 #ifdef INCLUDE_MAX7221_MODULES
 #include "SHMAX72217Segment.h"
-#define MAX7221_DATA 2           //{"Name":"MAX7221_DATA","Title":"DATA (DIN) digital pin number","DefaultValue":"3","Type":"pin;MAX7221 7seg. DATA","Condition":"MAX7221_ENABLEDMODULES > 0"}
-#define MAX7221_CLK 3            //{"Name":"MAX7221_CLK","Title":"CLOCK (CLK) digital pin number","DefaultValue":"5","Type":"pin;MAX7221 7seg. CLK","Condition":"MAX7221_ENABLEDMODULES > 0"}
+#define MAX7221_DATA 3           //{"Name":"MAX7221_DATA","Title":"DATA (DIN) digital pin number","DefaultValue":"3","Type":"pin;MAX7221 7seg. DATA","Condition":"MAX7221_ENABLEDMODULES > 0"}
+#define MAX7221_CLK 5            //{"Name":"MAX7221_CLK","Title":"CLOCK (CLK) digital pin number","DefaultValue":"5","Type":"pin;MAX7221 7seg. CLK","Condition":"MAX7221_ENABLEDMODULES > 0"}
 #define MAX7221_LOAD 4           //{"Name":"MAX7221_LOAD","Title":"LOAD (LD) digital pin number","DefaultValue":"4","Type":"pin;MAX7221 7seg. LOAD/LD","Condition":"MAX7221_ENABLEDMODULES > 0"}
 SHMAX72217Segment shMAX72217Segment;
 #endif // INCLUDE_MAX7221_MODULES
@@ -180,12 +190,12 @@ SHMAX72217Segment shMAX72217Segment;
 // MAX7219 / MAX7221 Led Matrix module -----------------------------------------------------------------------------
 // http://www.dx.com/p/max7219-dot-matrix-module-w-5-dupont-lines-184854
 // -------------------------------------------------------------------------------------------------------
-#define MAX7221_MATRIX_ENABLED 1 //{"Group":"MAX7221 Led Matrix","Name":"MAX7221_MATRIX_ENABLED","Title":"MAX7221 led matrix enabled ","DefaultValue":"0","Type":"bool"}
+#define MAX7221_MATRIX_ENABLED 0 //{"Group":"MAX7221 Led Matrix","Name":"MAX7221_MATRIX_ENABLED","Title":"MAX7221 led matrix enabled ","DefaultValue":"0","Type":"bool"}
 #ifdef INCLUDE_MAX7221MATRIX
 #include "SHMatrixMAX7219.h"
-#define MAX7221_MATRIX_DATA 2    //{"Name":"MAX7221_MATRIX_DATA","Title":"DATA (DIN) digital pin number","DefaultValue":"3","Type":"pin;MAX7221 Matrix DATA","Condition":"MAX7221_MATRIX_ENABLED>0"}
-#define MAX7221_MATRIX_CLK 3     //{"Name":"MAX7221_MATRIX_CLK","Title":"CLOCK (CLK) digital pin number","DefaultValue":"5","Type":"pin;MAX7221 Matrix CLK","Condition":"MAX7221_MATRIX_ENABLED>0"}
-#define MAX7221_MATRIX_LOAD 5    //{"Name":"MAX7221_MATRIX_LOAD","Title":"LOAD (LD/CS) digital pin number","DefaultValue":"4","Type":"pin;MAX7221 Matrix LOAD/LD","Condition":"MAX7221_MATRIX_ENABLED>0"}
+#define MAX7221_MATRIX_DATA 3    //{"Name":"MAX7221_MATRIX_DATA","Title":"DATA (DIN) digital pin number","DefaultValue":"3","Type":"pin;MAX7221 Matrix DATA","Condition":"MAX7221_MATRIX_ENABLED>0"}
+#define MAX7221_MATRIX_CLK 5     //{"Name":"MAX7221_MATRIX_CLK","Title":"CLOCK (CLK) digital pin number","DefaultValue":"5","Type":"pin;MAX7221 Matrix CLK","Condition":"MAX7221_MATRIX_ENABLED>0"}
+#define MAX7221_MATRIX_LOAD 4    //{"Name":"MAX7221_MATRIX_LOAD","Title":"LOAD (LD/CS) digital pin number","DefaultValue":"4","Type":"pin;MAX7221 Matrix LOAD/LD","Condition":"MAX7221_MATRIX_ENABLED>0"}
 SHMatrixMAX7219 shMatrixMAX7219;
 #endif
 
@@ -211,10 +221,10 @@ SHMatrixHT16H33SingleColor shMatrixHT16H33SingleColor;
 // -------------------------------------------------------------------------------------------------------
 // WS2812b chained RGBLEDS count
 // 0 disabled, > 0 enabled
-#define WS2812B_RGBLEDCOUNT 7        //{"Group":"WS2812B RGB Leds","Name":"WS2812B_RGBLEDCOUNT","Title":"WS2812B RGB leds count","DefaultValue":"0","Type":"int","Max":150}
+#define WS2812B_RGBLEDCOUNT 0        //{"Group":"WS2812B RGB Leds","Name":"WS2812B_RGBLEDCOUNT","Title":"WS2812B RGB leds count","DefaultValue":"0","Type":"int","Max":150}
 #ifdef INCLUDE_WS2812B
 
-#define WS2812B_DATAPIN 11           //{"Name":"WS2812B_DATAPIN","Title":"Data (DIN) digital pin number","DefaultValue":"6","Type":"pin;WS2812B LEDS DATA","Condition":"WS2812B_RGBLEDCOUNT>0"}
+#define WS2812B_DATAPIN 6            //{"Name":"WS2812B_DATAPIN","Title":"Data (DIN) digital pin number","DefaultValue":"6","Type":"pin;WS2812B LEDS DATA","Condition":"WS2812B_RGBLEDCOUNT>0"}
 #define WS2812B_RGBENCODING 0        //{"Name":"WS2812B_RGBENCODING","Title":"WS2812B RGB encoding\r\nSet to 0 for GRB, 1 for RGB encoding, 2 for BRG encoding","DefaultValue":"0","Type":"list","Condition":"WS2812B_RGBLEDCOUNT>0","ListValues":"0,GRB encoding;1,RGB encoding;2,BRG encoding"}
 #define WS2812B_RIGHTTOLEFT 0        //{"Name":"WS2812B_RIGHTTOLEFT","Title":"Reverse led order ","DefaultValue":"0","Type":"bool","Condition":"WS2812B_RGBLEDCOUNT>0"}
 #define WS2812B_TESTMODE 0           //{"Name":"WS2812B_TESTMODE","Title":"TESTING MODE : Light up all configured leds (in red color) at arduino startup\r\nIt will clear after simhub connection","DefaultValue":"0","Type":"bool","Condition":"WS2812B_RGBLEDCOUNT>0"}
@@ -270,10 +280,13 @@ SHRGBLedsWS2801 shRGBLedsWS2801;
 // -------------------------------------------------------------------------------------------------------
 // WS2812b chained RGBLEDS count
 // 0 disabled, > 0 enabled
-#define WS2812B_MATRIX_ENABLED 0 //{"Group":"WS2812B RGB Matrix","Name":"WS2812B_MATRIX_ENABLED","Title":"Enable WS2812B 8x8 matrix","DefaultValue":"0","Type":"bool"}
+#define WS2812B_MATRIX_ENABLED 0                 //{"Group":"WS2812B RGB Matrix","Name":"WS2812B_MATRIX_ENABLED","Title":"Enable WS2812B 8x8 matrix","DefaultValue":"0","Type":"bool"}
 
 #ifdef INCLUDE_WS2812B_MATRIX
-#define WS2812B_MATRIX_DATAPIN 6 //{"Name":"WS2812B_MATRIX_DATAPIN","Title":"Data (DIN) digital pin number","DefaultValue":"6","Type":"pin;WS2812B Matrix data","Condition":"WS2812B_MATRIX_ENABLED>0"}
+#define WS2812B_MATRIX_DATAPIN 6                 //{"Name":"WS2812B_MATRIX_DATAPIN","Title":"Data (DIN) digital pin number","DefaultValue":"6","Type":"pin;WS2812B Matrix data","Condition":"WS2812B_MATRIX_ENABLED>0"}
+#define WS2812B_MATRIX_SERPENTINELAYOUT 0        //{"Name":"WS2812B_MATRIX_SERPENTINELAYOUT","Title":"Serpentine layout matrix","DefaultValue":"0","Type":"bool","Condition":"WS2812B_MATRIX_ENABLED>0"}
+#define WS2812B_MATRIX_SERPENTINELAYOUTREVERSE 0 //{"Name":"WS2812B_MATRIX_SERPENTINELAYOUTREVERSE","Title":"Reverse serpentine layout start direction","DefaultValue":"0","Type":"bool","Condition":"WS2812B_MATRIX_ENABLED>0 && WS2812B_MATRIX_SERPENTINELAYOUT>0"}
+
 #include "SHRGBMatrixNeoPixelFastLed.h"
 SHRGBMatrixNeoPixelFastLed shRGBMatrixWS2812B;
 #endif
@@ -403,7 +416,7 @@ SHPWMPin shBOOSTPIN(BOOST_PIN, true);
 // https://github.com/zegreatclan/SimHub/wiki/Arduino-After-Market-Boost-Gauge
 // ----------------------------------------------------------------------------------------------------------
 #ifdef INCLUDE_TEMPGAUGE
-#define ENABLE_TEMPGAUGE 0 //{"Group":"Water Temperature Gauge","Name":"ENABLE_TEMPGAUGE","Title":"After market temperature gauge enabled\r\n(TESTED ON BMW E36 CLUSTER, OTHER USES MAY NOT WORK, SEE WIKI)","DefaultValue":"0","Type":"bool"}
+#define ENABLE_TEMPGAUGE 0 //{"Group":"Water Temperature Gauge","Name":"ENABLE_TEMPGAUGE","Title":"E36 Temperature gauge enabled\r\nDeprated see wiki","DefaultValue":"0","Type":"bool"}
 #define TEMP_PIN 5         //{"Name":"TEMP_PIN","Title":"TEMP pwm pin","DefaultValue":"5","Type":"pin;Temperature signal","Condition":"ENABLE_TEMPGAUGE >0"}
 #include "SHPWMPin.h"
 SHPWMPin shTEMPPIN(TEMP_PIN, (int)40);
@@ -413,7 +426,7 @@ SHPWMPin shTEMPPIN(TEMP_PIN, (int)40);
 // https://github.com/zegreatclan/SimHub/wiki/Arduino-After-Market-Boost-Gauge
 // ----------------------------------------------------------------------------------------------------------
 #ifdef INCLUDE_FUELGAUGE
-#define ENABLE_FUELGAUGE 0 //{"Group":"Fuel Gauge","Name":"ENABLE_FUELGAUGE","Title":"After market fuel gauge enabled\r\nSee wiki for wiring instructions","DefaultValue":"0","Type":"bool"}
+#define ENABLE_FUELGAUGE 0 //{"Group":"Fuel Gauge","Name":"ENABLE_FUELGAUGE","Title":"E36 Fuel gauge enabled\r\nDeprated see wiki","DefaultValue":"0","Type":"bool"}
 #define FUEL_PIN 5         //{"Name":"FUEL_PIN","Title":"FUEL pwm pin","DefaultValue":"5","Type":"pin;Fuel signal","Condition":"ENABLE_FUELGAUGE >0"}
 #include "SHPWMPin.h"
 SHPWMPin shFUELPIN(FUEL_PIN, (int)40);
@@ -429,26 +442,105 @@ SHPWMPin shFUELPIN(FUEL_PIN, (int)40);
 SHPWMPin shCONSPIN(CONS_PIN, 40);
 #endif
 
+#ifdef INCLUDE_GAMEPAD
+
+#include "SHGamepadAxis.h"
+
+#define GAMEPAD_AXIS_01_ENABLED 0           //{"Group":"Gamepad analog axis","Name":"GAMEPAD_AXIS_01_ENABLED","Title":"Throttle axis enabled","DefaultValue":"0","Type":"bool"}
+#define GAMEPAD_AXIS_01_PIN 0               //{"Name":"GAMEPAD_AXIS_01_PIN","Title":"Throttle axis analog pin","DefaultValue":"0","Type":"pin;Throttle","Condition":"GAMEPAD_AXIS_01_ENABLED>0"}
+#define GAMEPAD_AXIS_01_MINVALUE 0          //{"Name":"GAMEPAD_AXIS_01_MINVALUE","Title":"Throttle axis analog minimum value","DefaultValue":"0","Type":"int","Condition":"GAMEPAD_AXIS_01_ENABLED>0"}
+#define GAMEPAD_AXIS_01_MAXVALUE 1024       //{"Name":"GAMEPAD_AXIS_01_MAXVALUE","Title":"Throttle axis analog maximum value","DefaultValue":"1024","Type":"int","Condition":"GAMEPAD_AXIS_01_ENABLED>0"}
+#define GAMEPAD_AXIS_01_SAMPLING 10         //{"Name":"GAMEPAD_AXIS_01_SAMPLING","Title":"Throttle axis analog sampling precision","DefaultValue":"10","Type":"list","Condition":"GAMEPAD_AXIS_01_ENABLED>0","ListValues":"10,10 bits(default 0->1024);11,11 bits oversampling (slower 0->2048)"}
+#define GAMEPAD_AXIS_01_EXPONENTIALFACTOR 1 //{"Name":"GAMEPAD_AXIS_01_EXPONENTIALFACTOR","Title":"Throttle axis exponential correction","DefaultValue":"1","Type":"double","Condition":"GAMEPAD_AXIS_01_ENABLED>0","dMin":0.1,"dMax":1.9}
+
+#define GAMEPAD_AXIS_02_ENABLED 0           //{"Name":"GAMEPAD_AXIS_02_ENABLED","Title":"Accelerator axis enabled","DefaultValue":"0","Type":"bool"}
+#define GAMEPAD_AXIS_02_PIN 0               //{"Name":"GAMEPAD_AXIS_02_PIN","Title":"Accelerator axis analog pin","DefaultValue":"0","Type":"pin;Throttle","Condition":"GAMEPAD_AXIS_02_ENABLED>0"}
+#define GAMEPAD_AXIS_02_MINVALUE 0          //{"Name":"GAMEPAD_AXIS_02_MINVALUE","Title":"Accelerator axis analog minimum value","DefaultValue":"0","Type":"int","Condition":"GAMEPAD_AXIS_02_ENABLED>0"}
+#define GAMEPAD_AXIS_02_MAXVALUE 1024       //{"Name":"GAMEPAD_AXIS_02_MAXVALUE","Title":"Accelerator axis analog maximum value","DefaultValue":"1024","Type":"int","Condition":"GAMEPAD_AXIS_02_ENABLED>0"}
+#define GAMEPAD_AXIS_02_SAMPLING 10         //{"Name":"GAMEPAD_AXIS_02_SAMPLING","Title":"Accelerator axis analog sampling precision","DefaultValue":"10","Type":"list","Condition":"GAMEPAD_AXIS_02_ENABLED>0","ListValues":"10,10 bits(default 0->1024);11,11 bits oversampling (slower 0->2048)"}
+#define GAMEPAD_AXIS_02_EXPONENTIALFACTOR 1 //{"Name":"GAMEPAD_AXIS_02_EXPONENTIALFACTOR","Title":"Accelerator axis exponential correction","DefaultValue":"1","Type":"double","Condition":"GAMEPAD_AXIS_02_ENABLED>0","dMin":0.1,"dMax":1.9}
+
+#define GAMEPAD_AXIS_03_ENABLED 0           //{"Name":"GAMEPAD_AXIS_03_ENABLED","Title":"Brake axis enabled","DefaultValue":"0","Type":"bool"}
+#define GAMEPAD_AXIS_03_PIN 0               //{"Name":"GAMEPAD_AXIS_03_PIN","Title":"Brake axis analog pin","DefaultValue":"0","Type":"pin;Throttle","Condition":"GAMEPAD_AXIS_03_ENABLED>0"}
+#define GAMEPAD_AXIS_03_MINVALUE 0          //{"Name":"GAMEPAD_AXIS_03_MINVALUE","Title":"Brake axis analog minimum value","DefaultValue":"0","Type":"int","Condition":"GAMEPAD_AXIS_03_ENABLED>0"}
+#define GAMEPAD_AXIS_03_MAXVALUE 1024       //{"Name":"GAMEPAD_AXIS_03_MAXVALUE","Title":"Brake axis analog maximum value","DefaultValue":"1024","Type":"int","Condition":"GAMEPAD_AXIS_03_ENABLED>0"}
+#define GAMEPAD_AXIS_03_SAMPLING 10         //{"Name":"GAMEPAD_AXIS_03_SAMPLING","Title":"Brake axis analog sampling precision","DefaultValue":"10","Type":"list","Condition":"GAMEPAD_AXIS_03_ENABLED>0","ListValues":"10,10 bits(default 0->1024);11,11 bits oversampling (slower 0->2048)"}
+#define GAMEPAD_AXIS_03_EXPONENTIALFACTOR 1 //{"Name":"GAMEPAD_AXIS_03_EXPONENTIALFACTOR","Title":"Brake axis exponential correction","DefaultValue":"1","Type":"double","Condition":"GAMEPAD_AXIS_03_ENABLED>0","dMin":0.1,"dMax":1.9}
+
+#if(GAMEPAD_AXIS_01_ENABLED == 1)
+SHGamepadAxis SHGAMEPADAXIS01(GAMEPAD_AXIS_01_PIN, 0, GAMEPAD_AXIS_01_MINVALUE, GAMEPAD_AXIS_01_MAXVALUE, GAMEPAD_AXIS_01_SAMPLING, GAMEPAD_AXIS_01_EXPONENTIALFACTOR);
+#endif
+
+#if(GAMEPAD_AXIS_02_ENABLED == 1)
+SHGamepadAxis SHGAMEPADAXIS02(GAMEPAD_AXIS_02_PIN, 1, GAMEPAD_AXIS_02_MINVALUE, GAMEPAD_AXIS_02_MAXVALUE, GAMEPAD_AXIS_02_SAMPLING, GAMEPAD_AXIS_02_EXPONENTIALFACTOR);
+#endif
+
+#if(GAMEPAD_AXIS_03_ENABLED == 1)
+SHGamepadAxis SHGAMEPADAXIS03(GAMEPAD_AXIS_03_PIN, 2, GAMEPAD_AXIS_03_MINVALUE, GAMEPAD_AXIS_03_MAXVALUE, GAMEPAD_AXIS_03_SAMPLING, GAMEPAD_AXIS_03_EXPONENTIALFACTOR);
+#endif
+
+#endif // INCLUDE_GAMEPAD
+
+
+
 // ----------------------- ADDITIONAL BUTTONS ---------------------------------------------------------------
 // https://github.com/zegreatclan/SimHub/wiki/Arduino-Press-Buttons
 // ----------------------------------------------------------------------------------------------------------
-#define ENABLED_BUTTONS_COUNT 0 //{"Group":"Additional Buttons","Name":"ENABLED_BUTTONS_COUNT","Title":"Additional buttons (directly connected to the arduino, 12 max) buttons count","DefaultValue":"0","Type":"int","Max":12}
+#define ENABLED_BUTTONS_COUNT 3 //{"Group":"Additional Buttons","Name":"ENABLED_BUTTONS_COUNT","Title":"Additional buttons (directly connected to the arduino, 12 max) buttons count","DefaultValue":"0","Type":"int","Max":12}
 #ifdef  INCLUDE_BUTTONS
 
 #define BUTTON_PIN_1 3          //{"Name":"BUTTON_PIN_1","Title":"1'st Additional button digital pin","DefaultValue":"3","Type":"pin;Button 1","Condition":"ENABLED_BUTTONS_COUNT>=1"}
+#define BUTTON_WIRINGMODE_1 0   //{"Name":"BUTTON_WIRINGMODE_1","Title":"1'st Additional button wiring","DefaultValue":"0","Type":"list","Condition":"ENABLED_BUTTONS_COUNT>=1","ListValues":"0,Pin to GND;1,VCC to pin"}
+#define BUTTON_LOGICMODE_1 0    //{"Name":"BUTTON_LOGICMODE_1","Title":"1'st Additional button logic","DefaultValue":"0","Type":"list","Condition":"ENABLED_BUTTONS_COUNT>=1","ListValues":"0,Normal;1,Reversed"}
+
 #define BUTTON_PIN_2 3          //{"Name":"BUTTON_PIN_2","Title":"2'nd Additional button digital pin","DefaultValue":"3","Type":"pin;Button 2","Condition":"ENABLED_BUTTONS_COUNT>=2"}
+#define BUTTON_WIRINGMODE_2 0   //{"Name":"BUTTON_WIRINGMODE_2","Title":"2'nd Additional button wiring","DefaultValue":"0","Type":"list","Condition":"ENABLED_BUTTONS_COUNT>=2","ListValues":"0,Pin to GND;1,VCC to pin"}
+#define BUTTON_LOGICMODE_2 0    //{"Name":"BUTTON_LOGICMODE_2","Title":"2'nd Additional button logic","DefaultValue":"0","Type":"list","Condition":"ENABLED_BUTTONS_COUNT>=2","ListValues":"0,Normal;1,Reversed"}
+
 #define BUTTON_PIN_3 3          //{"Name":"BUTTON_PIN_3","Title":"3'rd Additional button digital pin","DefaultValue":"3","Type":"pin;Button 3","Condition":"ENABLED_BUTTONS_COUNT>=3"}
+#define BUTTON_WIRINGMODE_3 0   //{"Name":"BUTTON_WIRINGMODE_3","Title":"3'rd Additional button wiring","DefaultValue":"0","Type":"list","Condition":"ENABLED_BUTTONS_COUNT>=3","ListValues":"0,Pin to GND;1,VCC to pin"}
+#define BUTTON_LOGICMODE_3 0    //{"Name":"BUTTON_LOGICMODE_3","Title":"3'rd Additional button logic","DefaultValue":"0","Type":"list","Condition":"ENABLED_BUTTONS_COUNT>=3","ListValues":"0,Normal;1,Reversed"}
+
 #define BUTTON_PIN_4 3          //{"Name":"BUTTON_PIN_4","Title":"4'th Additional button digital pin","DefaultValue":"3","Type":"pin;Button 4","Condition":"ENABLED_BUTTONS_COUNT>=4"}
+#define BUTTON_WIRINGMODE_4 0   //{"Name":"BUTTON_WIRINGMODE_4","Title":"4'th Additional button wiring","DefaultValue":"0","Type":"list","Condition":"ENABLED_BUTTONS_COUNT>=4","ListValues":"0,Pin to GND;1,VCC to pin"}
+#define BUTTON_LOGICMODE_4 0    //{"Name":"BUTTON_LOGICMODE_4","Title":"4'th Additional button logic","DefaultValue":"0","Type":"list","Condition":"ENABLED_BUTTONS_COUNT>=4","ListValues":"0,Normal;1,Reversed"}
+
 #define BUTTON_PIN_5 3          //{"Name":"BUTTON_PIN_5","Title":"5'th Additional button digital pin","DefaultValue":"3","Type":"pin;Button 5","Condition":"ENABLED_BUTTONS_COUNT>=5"}
+#define BUTTON_WIRINGMODE_5 0   //{"Name":"BUTTON_WIRINGMODE_5","Title":"5'th Additional button wiring","DefaultValue":"0","Type":"list","Condition":"ENABLED_BUTTONS_COUNT>=5","ListValues":"0,Pin to GND;1,VCC to pin"}
+#define BUTTON_LOGICMODE_5 0    //{"Name":"BUTTON_LOGICMODE_5","Title":"5'th Additional button logic","DefaultValue":"0","Type":"list","Condition":"ENABLED_BUTTONS_COUNT>=5","ListValues":"0,Normal;1,Reversed"}
+
 #define BUTTON_PIN_6 3          //{"Name":"BUTTON_PIN_6","Title":"6'th Additional button digital pin","DefaultValue":"3","Type":"pin;Button 6","Condition":"ENABLED_BUTTONS_COUNT>=6"}
+#define BUTTON_WIRINGMODE_6 0   //{"Name":"BUTTON_WIRINGMODE_6","Title":"6'th Additional button wiring","DefaultValue":"0","Type":"list","Condition":"ENABLED_BUTTONS_COUNT>=6","ListValues":"0,Pin to GND;1,VCC to pin"}
+#define BUTTON_LOGICMODE_6 0    //{"Name":"BUTTON_LOGICMODE_6","Title":"6'th Additional button logic","DefaultValue":"0","Type":"list","Condition":"ENABLED_BUTTONS_COUNT>=6","ListValues":"0,Normal;1,Reversed"}
+
 #define BUTTON_PIN_7 3          //{"Name":"BUTTON_PIN_7","Title":"7'th Additional button digital pin","DefaultValue":"3","Type":"pin;Button 7","Condition":"ENABLED_BUTTONS_COUNT>=7"}
+#define BUTTON_WIRINGMODE_7 0   //{"Name":"BUTTON_WIRINGMODE_7","Title":"7'th Additional button wiring","DefaultValue":"0","Type":"list","Condition":"ENABLED_BUTTONS_COUNT>=7","ListValues":"0,Pin to GND;1,VCC to pin"}
+#define BUTTON_LOGICMODE_7 0    //{"Name":"BUTTON_LOGICMODE_7","Title":"7'th Additional button logic","DefaultValue":"0","Type":"list","Condition":"ENABLED_BUTTONS_COUNT>=7","ListValues":"0,Normal;1,Reversed"}
+
 #define BUTTON_PIN_8 3          //{"Name":"BUTTON_PIN_8","Title":"8'th Additional button digital pin","DefaultValue":"3","Type":"pin;Button 8","Condition":"ENABLED_BUTTONS_COUNT>=8"}
+#define BUTTON_WIRINGMODE_8 0   //{"Name":"BUTTON_WIRINGMODE_8","Title":"8'th Additional button wiring","DefaultValue":"0","Type":"list","Condition":"ENABLED_BUTTONS_COUNT>=8","ListValues":"0,Pin to GND;1,VCC to pin"}
+#define BUTTON_LOGICMODE_8 0    //{"Name":"BUTTON_LOGICMODE_8","Title":"8'th Additional button logic","DefaultValue":"0","Type":"list","Condition":"ENABLED_BUTTONS_COUNT>=8","ListValues":"0,Normal;1,Reversed"}
+
 #define BUTTON_PIN_9 3          //{"Name":"BUTTON_PIN_9","Title":"9'th Additional button digital pin","DefaultValue":"3","Type":"pin;Button 9","Condition":"ENABLED_BUTTONS_COUNT>=9"}
+#define BUTTON_WIRINGMODE_9 0   //{"Name":"BUTTON_WIRINGMODE_9","Title":"9'th Additional button wiring","DefaultValue":"0","Type":"list","Condition":"ENABLED_BUTTONS_COUNT>=9","ListValues":"0,Pin to GND;1,VCC to pin"}
+#define BUTTON_LOGICMODE_9 0    //{"Name":"BUTTON_LOGICMODE_9","Title":"9'th Additional button logic","DefaultValue":"0","Type":"list","Condition":"ENABLED_BUTTONS_COUNT>=9","ListValues":"0,Normal;1,Reversed"}
+
 #define BUTTON_PIN_10 3         //{"Name":"BUTTON_PIN_10","Title":"10'th Additional button digital pin","DefaultValue":"3","Type":"pin;Button 10","Condition":"ENABLED_BUTTONS_COUNT>=10"}
+#define BUTTON_WIRINGMODE_10 0  //{"Name":"BUTTON_WIRINGMODE_10","Title":"10'th Additional button wiring","DefaultValue":"0","Type":"list","Condition":"ENABLED_BUTTONS_COUNT>=10","ListValues":"0,Pin to GND;1,VCC to pin"}
+#define BUTTON_LOGICMODE_10 0   //{"Name":"BUTTON_LOGICMODE_10","Title":"10'th Additional button logic","DefaultValue":"0","Type":"list","Condition":"ENABLED_BUTTONS_COUNT>=10","ListValues":"0,Normal;1,Reversed"}
+
 #define BUTTON_PIN_11 3         //{"Name":"BUTTON_PIN_11","Title":"11'th Additional button digital pin","DefaultValue":"3","Type":"pin;Button 11","Condition":"ENABLED_BUTTONS_COUNT>=11"}
+#define BUTTON_WIRINGMODE_11 0  //{"Name":"BUTTON_WIRINGMODE_11","Title":"11'th Additional button wiring","DefaultValue":"0","Type":"list","Condition":"ENABLED_BUTTONS_COUNT>=11","ListValues":"0,Pin to GND;1,VCC to pin"}
+#define BUTTON_LOGICMODE_11 0   //{"Name":"BUTTON_LOGICMODE_11","Title":"11'th Additional button logic","DefaultValue":"0","Type":"list","Condition":"ENABLED_BUTTONS_COUNT>=11","ListValues":"0,Normal;1,Reversed"}
+
 #define BUTTON_PIN_12 3         //{"Name":"BUTTON_PIN_12","Title":"12'th Additional button digital pin","DefaultValue":"3","Type":"pin;Button 12","Condition":"ENABLED_BUTTONS_COUNT>=12"}
+#define BUTTON_WIRINGMODE_12 0  //{"Name":"BUTTON_WIRINGMODE_12","Title":"12'th Additional button wiring","DefaultValue":"0","Type":"list","Condition":"ENABLED_BUTTONS_COUNT>=12","ListValues":"0,Pin to GND;1,VCC to pin"}
+#define BUTTON_LOGICMODE_12 0   //{"Name":"BUTTON_LOGICMODE_12","Title":"12'th Additional button logic","DefaultValue":"0","Type":"list","Condition":"ENABLED_BUTTONS_COUNT>=12","ListValues":"0,Normal;1,Reversed"}
+
 
 int BUTTON_PINS[] = { BUTTON_PIN_1, BUTTON_PIN_2, BUTTON_PIN_3, BUTTON_PIN_4, BUTTON_PIN_5, BUTTON_PIN_6, BUTTON_PIN_7, BUTTON_PIN_8, BUTTON_PIN_9,BUTTON_PIN_10,BUTTON_PIN_11,BUTTON_PIN_12 };
+int BUTTON_WIRING_MODES[] = { BUTTON_WIRINGMODE_1, BUTTON_WIRINGMODE_2, BUTTON_WIRINGMODE_3, BUTTON_WIRINGMODE_4, BUTTON_WIRINGMODE_5, BUTTON_WIRINGMODE_6, BUTTON_WIRINGMODE_7, BUTTON_WIRINGMODE_8, BUTTON_WIRINGMODE_9,BUTTON_WIRINGMODE_10,BUTTON_WIRINGMODE_11,BUTTON_WIRINGMODE_12 };
+int BUTTON_LOGIC_MODES[] = { BUTTON_LOGICMODE_1,  BUTTON_LOGICMODE_2,  BUTTON_LOGICMODE_3,  BUTTON_LOGICMODE_4,  BUTTON_LOGICMODE_5,  BUTTON_LOGICMODE_6,  BUTTON_LOGICMODE_7,  BUTTON_LOGICMODE_8,  BUTTON_LOGICMODE_9, BUTTON_LOGICMODE_10, BUTTON_LOGICMODE_11, BUTTON_LOGICMODE_12 };
 SHButton button1, button2, button3, button4, button5, button6, button7, button8, button9, button10, button11, button12;
 SHButton* BUTTONS[] = { &button1, &button2, &button3, &button4, &button5, &button6, &button7, &button8 , &button9, &button10, &button11, &button12 };
 
@@ -570,6 +662,16 @@ SHButtonMatrix shButtonMatrix;
 SHShakeitAdaMotorShieldV2 shShakeitAdaMotorShieldV2;
 #endif
 
+// -------------------- SHAKEIT DUAL VNH5019 Board ------------------------------------------------------
+// https://github.com/zegreatclan/SimHub/wiki/Arduino-Shake-It
+// ------------------------------------------------------------------------------------------------------
+#define DUALVNH5019_ENABLED 0          //{"Group":"SHAKEIT Dual VNH5019","Name":"DUALVNH5019_ENABLED","Title":"Dual VNH5019 board enabled","DefaultValue":"0","Type":"bool"}
+#ifdef INCLUDE_SHAKEIDUALVNH5019
+#define DUALVNH5019_REVERSEDIRECTION 0 //{"Name":"DUALVNH5019_REVERSEDIRECTION","Title":"Direction ","DefaultValue":"0","Type":"list","Condition":"DUALVNH5019_ENABLED>0","ListValues":"0,Clockwise;1,Counter clockwise"}
+#include "SHShakeitDualVNH5019.h"
+SHShakeitDualVNH5019 shShakeitDualVNH5019;
+#endif
+
 // -------------------- SHAKEIT MONSTER MOTO BOARD ------------------------------------------------------
 // https://github.com/zegreatclan/SimHub/wiki/Arduino-Shake-It
 // ------------------------------------------------------------------------------------------------------
@@ -583,7 +685,7 @@ SHShakeitMotoMonster shShakeitMotoMonster;
 // -------------------- SHAKEIT ADA MOTOR SHIELD / DK MOTOR SHIELD ----------------------------------------
 // https://github.com/zegreatclan/SimHub/wiki/Arduino-Shake-It
 // --------------------------------------------------------------------------------------------------------
-#define DKMOTOR_SHIELDSCOUNT 0       //{"Group":"SHAKEIT DK Motor Shield","Name":"DKMOTOR_SHIELDSCOUNT","Title":"DK shield enabled","DefaultValue":"0","Type":"bool"}
+#define DKMOTOR_SHIELDSCOUNT 0       //{"Group":"SHAKEIT DK Motor Shield","Name":"DKMOTOR_SHIELDSCOUNT","Title":"DK shield enabled\nDEPRECATED : See wiki","DefaultValue":"0","Type":"bool"}
 #ifdef INCLUDE_SHAKEITDKSHIELD
 #define DKMOTOR_USEHUMMINGREDUCING 0 //{"Name":"DKMOTOR_USEHUMMINGREDUCING","Title":"Change the pwm frequency to reduce humming (uno only), may strongly reduce power","DefaultValue":"0","Type":"bool","Condition":"DKMOTOR_SHIELDSCOUNT > 0"}
 #include "SHShakeitDKMotorShield.h"
@@ -632,32 +734,36 @@ SHShakeitPWM shShakeitPWM;
 // -------------------- SHAKEIT PWM FANS OUTPUT ----------------------------------------------------------------
 // https://github.com/zegreatclan/SimHub/wiki/Arduino-Shake-It
 // --------------------------------------------------------------------------------------------------------
-#define SHAKEITPWMFANS_ENABLED_MOTORS 0 //{"Group":"SHAKEIT PWM FANS Outputs","Name":"SHAKEITPWMFANS_ENABLED_MOTORS","Title":"ShakeIT direct PWM fans enabled (25khz PWM)\r\nArduino Uno : pins 9 or 10\r\nArduino Leonardo pins : 9, 10 or 11\r\nArduino Mega pins : 11, 12 or 13","DefaultValue":"0","Type":"int","Max":3}
+#define SHAKEITPWMFANS_ENABLED_MOTORS 0        //{"Group":"SHAKEIT PWM FANS Outputs","Name":"SHAKEITPWMFANS_ENABLED_MOTORS","Title":"ShakeIT direct PWM fans enabled (25khz PWM)\r\nArduino Uno : pins 9 or 10\r\nArduino Leonardo pins : 9, 10 or 11\r\nArduino Mega pins : 11, 12 or 13","DefaultValue":"0","Type":"int","Max":3}
 
 #ifdef INCLUDE_SHAKEITPWMFANS
-#define SHAKEITPWMFANS_O1 9             //{"Name":"SHAKEITPWMFANS_O1","Title":"PWM Output 1 pin","DefaultValue":"9","Type":"pin;ShakeIt PWM Fan 1","Condition":"SHAKEITPWMFANS_ENABLED_MOTORS>=1"}
-#define SHAKEITPWMFANS_MIN_OUTPUT_O1 0  //{"Name":"SHAKEITPWMFANS_MIN_OUTPUT_O1","Title":"PWM Output 1 min (lower values will disable output)","DefaultValue":"0","Type":"int","Condition":"SHAKEITPWMFANS_ENABLED_MOTORS>=1","Max":255}
-#define SHAKEITPWMFANS_MAX_OUTPUT_O1 255 //{"Name":"SHAKEITPWMFANS_MAX_OUTPUT_O1","Title":"PWM Output 1 max","DefaultValue":"255","Type":"int","Condition":"SHAKEITPWMFANS_ENABLED_MOTORS>=1","Max":255}
-#define SHAKEITPWMFANS_RELAY_PIN_01 4   //{"Name":"SHAKEITPWMFANS_RELAY_PIN_01","Title":"PWM Output 1 optional on/off relay pin","DefaultValue":"4","Type":"pin;PWN FAN 1 relay","Condition":"SHAKEITPWMFANS_ENABLED_MOTORS>=1","Min":-1}
-#define SHAKEITPWMFANS_RELAY_DELAY_01 2000 //{"Name":"SHAKEITPWMFANS_RELAY_DELAY_01","Title":"PWM Output 1 optional relay off delay (ms)","DefaultValue":"2000","Type":"int","Condition":"SHAKEITPWMFANS_ENABLED_MOTORS>=1 && SHAKEITPWMFANS_RELAY_PIN_01 >0"}
+#define SHAKEITPWMFANS_O1 9                    //{"Name":"SHAKEITPWMFANS_O1","Title":"PWM Output 1 pin","DefaultValue":"9","Type":"pin;ShakeIt PWM Fan 1","Condition":"SHAKEITPWMFANS_ENABLED_MOTORS>=1"}
+#define SHAKEITPWMFANS_MIN_OUTPUT_O1 0         //{"Name":"SHAKEITPWMFANS_MIN_OUTPUT_O1","Title":"PWM Output 1 min (lower values will disable output)","DefaultValue":"0","Type":"int","Condition":"SHAKEITPWMFANS_ENABLED_MOTORS>=1","Max":255}
+#define SHAKEITPWMFANS_MAX_OUTPUT_O1 255       //{"Name":"SHAKEITPWMFANS_MAX_OUTPUT_O1","Title":"PWM Output 1 max","DefaultValue":"255","Type":"int","Condition":"SHAKEITPWMFANS_ENABLED_MOTORS>=1","Max":255}
+#define SHAKEITPWMFANS_RELAY_PIN_01 4          //{"Name":"SHAKEITPWMFANS_RELAY_PIN_01","Title":"PWM Output 1 optional on/off relay pin","DefaultValue":"4","Type":"pin;PWN FAN 1 relay","Condition":"SHAKEITPWMFANS_ENABLED_MOTORS>=1","Min":-1}
+#define SHAKEITPWMFANS_RELAY_DELAY_01 2000     //{"Name":"SHAKEITPWMFANS_RELAY_DELAY_01","Title":"PWM Output 1 optional relay off delay (ms)","DefaultValue":"2000","Type":"int","Condition":"SHAKEITPWMFANS_ENABLED_MOTORS>=1 && SHAKEITPWMFANS_RELAY_PIN_01 >0"}
+#define SHAKEITPWMFANS_RELAY_REVERSELOGIC_01 0 //{"Name":"SHAKEITPWMFANS_RELAY_REVERSELOGIC_01","Title":"PWM Output 1 optional relay reversed logic\nWhen disabled relay pin will be LOW when the relay must be off,\r\nOtherwise when enabled the pin will be HIGH when the relay is off","DefaultValue":"0","Type":"bool","Condition":"SHAKEITPWMFANS_ENABLED_MOTORS>=1 && SHAKEITPWMFANS_RELAY_PIN_01 > 0"}
 
-#define SHAKEITPWMFANS_O2 10            //{"Name":"SHAKEITPWMFANS_O2","Title":"PWM Output 2 pin","DefaultValue":"10","Type":"pin;ShakeIt PWM Fan 2","Condition":"SHAKEITPWMFANS_ENABLED_MOTORS>=2"}
-#define SHAKEITPWMFANS_MIN_OUTPUT_O2 0  //{"Name":"SHAKEITPWMFANS_MIN_OUTPUT_O2","Title":"PWM Output 2 min (lower values will disable output)","DefaultValue":"0","Type":"int","Condition":"SHAKEITPWMFANS_ENABLED_MOTORS>=2","Max":255}
-#define SHAKEITPWMFANS_MAX_OUTPUT_O2 255 //{"Name":"SHAKEITPWMFANS_MAX_OUTPUT_O2","Title":"PWM Output 2 max","DefaultValue":"255","Type":"int","Condition":"SHAKEITPWMFANS_ENABLED_MOTORS>=2","Max":255}
-#define SHAKEITPWMFANS_RELAY_PIN_02 5   //{"Name":"SHAKEITPWMFANS_RELAY_PIN_02","Title":"PWM Output 2 optional on/off relay pin","DefaultValue":"5","Type":"pin;PWN FAN 2 relay","Condition":"SHAKEITPWMFANS_ENABLED_MOTORS>=2","Min":-1}
-#define SHAKEITPWMFANS_RELAY_DELAY_02 2000 //{"Name":"SHAKEITPWMFANS_RELAY_DELAY_02","Title":"PWM Output 2 optional relay off delay (ms)","DefaultValue":"2000","Type":"int","Condition":"SHAKEITPWMFANS_ENABLED_MOTORS>=2 && SHAKEITPWMFANS_RELAY_PIN_02 >0"}
+#define SHAKEITPWMFANS_O2 10                   //{"Name":"SHAKEITPWMFANS_O2","Title":"PWM Output 2 pin","DefaultValue":"10","Type":"pin;ShakeIt PWM Fan 2","Condition":"SHAKEITPWMFANS_ENABLED_MOTORS>=2"}
+#define SHAKEITPWMFANS_MIN_OUTPUT_O2 0         //{"Name":"SHAKEITPWMFANS_MIN_OUTPUT_O2","Title":"PWM Output 2 min (lower values will disable output)","DefaultValue":"0","Type":"int","Condition":"SHAKEITPWMFANS_ENABLED_MOTORS>=2","Max":255}
+#define SHAKEITPWMFANS_MAX_OUTPUT_O2 255       //{"Name":"SHAKEITPWMFANS_MAX_OUTPUT_O2","Title":"PWM Output 2 max","DefaultValue":"255","Type":"int","Condition":"SHAKEITPWMFANS_ENABLED_MOTORS>=2","Max":255}
+#define SHAKEITPWMFANS_RELAY_PIN_02 5          //{"Name":"SHAKEITPWMFANS_RELAY_PIN_02","Title":"PWM Output 2 optional on/off relay pin","DefaultValue":"5","Type":"pin;PWN FAN 2 relay","Condition":"SHAKEITPWMFANS_ENABLED_MOTORS>=2","Min":-1}
+#define SHAKEITPWMFANS_RELAY_DELAY_02 2000     //{"Name":"SHAKEITPWMFANS_RELAY_DELAY_02","Title":"PWM Output 2 optional relay off delay (ms)","DefaultValue":"2000","Type":"int","Condition":"SHAKEITPWMFANS_ENABLED_MOTORS>=2 && SHAKEITPWMFANS_RELAY_PIN_02 >0"}
+#define SHAKEITPWMFANS_RELAY_REVERSELOGIC_02 0 //{"Name":"SHAKEITPWMFANS_RELAY_REVERSELOGIC_02","Title":"PWM Output 2 optional relay reversed logic\nWhen disabled relay pin will be LOW when the relay is off,\r\nOtherwise when enabled the pin will be HIGH when the relay is off","DefaultValue":"0","Type":"bool","Condition":"SHAKEITPWMFANS_ENABLED_MOTORS>=2 && SHAKEITPWMFANS_RELAY_PIN_02 > 0"}
 
-#define SHAKEITPWMFANS_O3 11            //{"Name":"SHAKEITPWMFANS_O3","Title":"PWM Output 3 pin","DefaultValue":"11","Type":"pin;ShakeIt PWM Fan 3","Condition":"SHAKEITPWMFANS_ENABLED_MOTORS>=3"}
-#define SHAKEITPWMFANS_MIN_OUTPUT_O3 0  //{"Name":"SHAKEITPWMFANS_MIN_OUTPUT_O3","Title":"PWM Output 3 min (lower values will disable output)","DefaultValue":"0","Type":"int","Condition":"SHAKEITPWMFANS_ENABLED_MOTORS>=3","Max":255}
-#define SHAKEITPWMFANS_MAX_OUTPUT_O3 255 //{"Name":"SHAKEITPWMFANS_MAX_OUTPUT_O3","Title":"PWM Output 3 max","DefaultValue":"255","Type":"int","Condition":"SHAKEITPWMFANS_ENABLED_MOTORS>=3","Max":255}
-#define SHAKEITPWMFANS_RELAY_PIN_03 6   //{"Name":"SHAKEITPWMFANS_RELAY_PIN_03","Title":"PWM Output 3 optional on/off relay pin","DefaultValue":"6","Type":"pin;PWN FAN 3 relay","Condition":"SHAKEITPWMFANS_ENABLED_MOTORS>=3","Min":-1}
-#define SHAKEITPWMFANS_RELAY_DELAY_03 2000 //{"Name":"SHAKEITPWMFANS_RELAY_DELAY_03","Title":"PWM Output 3 optional relay off delay (ms)","DefaultValue":"2000","Type":"int","Condition":"SHAKEITPWMFANS_ENABLED_MOTORS>=3 && SHAKEITPWMFANS_RELAY_PIN_03 >0"}
+#define SHAKEITPWMFANS_O3 11                   //{"Name":"SHAKEITPWMFANS_O3","Title":"PWM Output 3 pin","DefaultValue":"11","Type":"pin;ShakeIt PWM Fan 3","Condition":"SHAKEITPWMFANS_ENABLED_MOTORS>=3"}
+#define SHAKEITPWMFANS_MIN_OUTPUT_O3 0         //{"Name":"SHAKEITPWMFANS_MIN_OUTPUT_O3","Title":"PWM Output 3 min (lower values will disable output)","DefaultValue":"0","Type":"int","Condition":"SHAKEITPWMFANS_ENABLED_MOTORS>=3","Max":255}
+#define SHAKEITPWMFANS_MAX_OUTPUT_O3 255       //{"Name":"SHAKEITPWMFANS_MAX_OUTPUT_O3","Title":"PWM Output 3 max","DefaultValue":"255","Type":"int","Condition":"SHAKEITPWMFANS_ENABLED_MOTORS>=3","Max":255}
+#define SHAKEITPWMFANS_RELAY_PIN_03 6          //{"Name":"SHAKEITPWMFANS_RELAY_PIN_03","Title":"PWM Output 3 optional on/off relay pin","DefaultValue":"6","Type":"pin;PWN FAN 3 relay","Condition":"SHAKEITPWMFANS_ENABLED_MOTORS>=3","Min":-1}
+#define SHAKEITPWMFANS_RELAY_DELAY_03 2000     //{"Name":"SHAKEITPWMFANS_RELAY_DELAY_03","Title":"PWM Output 3 optional relay off delay (ms)","DefaultValue":"2000","Type":"int","Condition":"SHAKEITPWMFANS_ENABLED_MOTORS>=3 && SHAKEITPWMFANS_RELAY_PIN_03 >0"}
+#define SHAKEITPWMFANS_RELAY_REVERSELOGIC_03 0 //{"Name":"SHAKEITPWMFANS_RELAY_REVERSELOGIC_03","Title":"PWM Output 3 optional relay reversed logic\nWhen disabled relay pin will be LOW when the relay is off,\r\nOtherwise when enabled the pin will be HIGH when the relay is off","DefaultValue":"0","Type":"bool","Condition":"SHAKEITPWMFANS_ENABLED_MOTORS>=3 && SHAKEITPWMFANS_RELAY_PIN_03 > 0"}
 
-#define SHAKEITPWMFANS_O4 10            //{"Name":"SHAKEITPWMFANS_O4","Title":"PWM Output 4 pin","DefaultValue":"10","Type":"pin;ShakeIt PWM Fan 4","Condition":"SHAKEITPWMFANS_ENABLED_MOTORS>=4"}
-#define SHAKEITPWMFANS_MIN_OUTPUT_O4 0  //{"Name":"SHAKEITPWMFANS_MIN_OUTPUT_O4","Title":"PWM Output 4 min (lower values will disable output)","DefaultValue":"0","Type":"int","Condition":"SHAKEITPWMFANS_ENABLED_MOTORS>=4","Max":255}
-#define SHAKEITPWMFANS_MAX_OUTPUT_O4 255 //{"Name":"SHAKEITPWMFANS_MAX_OUTPUT_O4","Title":"PWM Output 4 max","DefaultValue":"255","Type":"int","Condition":"SHAKEITPWMFANS_ENABLED_MOTORS>=4","Max":255}
-#define SHAKEITPWMFANS_RELAY_PIN_04 7   //{"Name":"SHAKEITPWMFANS_RELAY_PIN_04","Title":"PWM Output 4 optional on/off relay pin","DefaultValue":"7","Type":"pin;PWN FAN 4 relay","Condition":"SHAKEITPWMFANS_ENABLED_MOTORS>=4","Min":-1}
-#define SHAKEITPWMFANS_RELAY_DELAY_04 2000 //{"Name":"SHAKEITPWMFANS_RELAY_DELAY_04","Title":"PWM Output 4 optional relay off delay (ms)","DefaultValue":"2000","Type":"int","Condition":"SHAKEITPWMFANS_ENABLED_MOTORS>=4 && SHAKEITPWMFANS_RELAY_PIN_04 >0"}
+#define SHAKEITPWMFANS_O4 10                   //{"Name":"SHAKEITPWMFANS_O4","Title":"PWM Output 4 pin","DefaultValue":"10","Type":"pin;ShakeIt PWM Fan 4","Condition":"SHAKEITPWMFANS_ENABLED_MOTORS>=4"}
+#define SHAKEITPWMFANS_MIN_OUTPUT_O4 0         //{"Name":"SHAKEITPWMFANS_MIN_OUTPUT_O4","Title":"PWM Output 4 min (lower values will disable output)","DefaultValue":"0","Type":"int","Condition":"SHAKEITPWMFANS_ENABLED_MOTORS>=4","Max":255}
+#define SHAKEITPWMFANS_MAX_OUTPUT_O4 255       //{"Name":"SHAKEITPWMFANS_MAX_OUTPUT_O4","Title":"PWM Output 4 max","DefaultValue":"255","Type":"int","Condition":"SHAKEITPWMFANS_ENABLED_MOTORS>=4","Max":255}
+#define SHAKEITPWMFANS_RELAY_PIN_04 7          //{"Name":"SHAKEITPWMFANS_RELAY_PIN_04","Title":"PWM Output 4 optional on/off relay pin","DefaultValue":"7","Type":"pin;PWN FAN 4 relay","Condition":"SHAKEITPWMFANS_ENABLED_MOTORS>=4","Min":-1}
+#define SHAKEITPWMFANS_RELAY_DELAY_04 2000     //{"Name":"SHAKEITPWMFANS_RELAY_DELAY_04","Title":"PWM Output 4 optional relay off delay (ms)","DefaultValue":"2000","Type":"int","Condition":"SHAKEITPWMFANS_ENABLED_MOTORS>=4 && SHAKEITPWMFANS_RELAY_PIN_04 >0"}
+#define SHAKEITPWMFANS_RELAY_REVERSELOGIC_04 0 //{"Name":"SHAKEITPWMFANS_RELAY_REVERSELOGIC_04","Title":"PWM Output 4 optional relay reversed logic\nWhen disabled relay pin will be LOW when the relay is off,\r\nOtherwise when enabled the pin will be HIGH when the relay is off","DefaultValue":"0","Type":"bool","Condition":"SHAKEITPWMFANS_ENABLED_MOTORS>=4 && SHAKEITPWMFANS_RELAY_PIN_04 > 0"}
 
 #include "SHShakeitPWMFans.h"
 SHShakeitPWMFans shShakeitPWMFans;
@@ -808,13 +914,12 @@ void RS_6c595_SetChar(char c) {
 #endif //INCLUDE_6c595_GEAR_DISPLAY
 
 #ifdef INCLUDE_GAMEPAD
-#include <Joystick.h>
 
 //initialize an Joystick with 34 buttons;
 Joystick_ Joystick(JOYSTICK_DEFAULT_REPORT_ID,
 	JOYSTICK_TYPE_JOYSTICK, 128, 0,
 	false, false, false, false, false, false,
-	false, false, false, false, false);
+	false, GAMEPAD_AXIS_01_ENABLED, GAMEPAD_AXIS_02_ENABLED, GAMEPAD_AXIS_03_ENABLED, false);
 
 #endif
 
@@ -823,7 +928,18 @@ SHCustomProtocol shCustomProtocol;
 #include "SHCommands.h"
 #include "SHCommandsGlcd.h"
 unsigned long lastMatrixRefresh = 0;
+
 void idle(bool critical) {
+
+#if(GAMEPAD_AXIS_01_ENABLED == 1)
+	SHGAMEPADAXIS01.read();
+#endif
+#if(GAMEPAD_AXIS_02_ENABLED == 1)
+	SHGAMEPADAXIS02.read();
+#endif
+#if(GAMEPAD_AXIS_03_ENABLED == 1)
+	SHGAMEPADAXIS03.read();
+#endif
 #ifdef  INCLUDE_ENCODERS
 	for (int i = 0; i < ENABLED_ENCODERS_COUNT; i++) {
 		SHRotaryEncoders[i]->read();
@@ -968,8 +1084,7 @@ void setup()
 
 #ifdef INCLUDE_WS2812B_MATRIX
 	if (WS2812B_MATRIX_ENABLED > 0) {
-		shRGBMatrixWS2812B.begin(64, false, false);
-
+		shRGBMatrixWS2812B.begin(64, false, WS2812B_MATRIX_SERPENTINELAYOUT, WS2812B_MATRIX_SERPENTINELAYOUTREVERSE, false);
 	}
 #endif
 #ifdef INCLUDE_DM163_MATRIX
@@ -1049,7 +1164,7 @@ void setup()
 #ifdef INCLUDE_BUTTONS
 	// EXTERNAL BUTTONS INIT
 	for (int btnIdx = 0; btnIdx < ENABLED_BUTTONS_COUNT; btnIdx++) {
-		BUTTONS[btnIdx]->begin(btnIdx + 1, BUTTON_PINS[btnIdx], buttonStatusChanged);
+		BUTTONS[btnIdx]->begin(btnIdx + 1, BUTTON_PINS[btnIdx], buttonStatusChanged, BUTTON_WIRING_MODES[btnIdx], BUTTON_LOGIC_MODES[btnIdx]);
 	}
 #endif
 
@@ -1069,6 +1184,9 @@ void setup()
 #ifdef INCLUDE_SHAKEITMOTOMONSTER
 	shShakeitMotoMonster.begin(MOTOMONSTER_REVERSEDIRECTION);
 #endif
+#ifdef INCLUDE_SHAKEIDUALVNH5019
+	shShakeitDualVNH5019.begin(DUALVNH5019_REVERSEDIRECTION);
+#endif
 
 #ifdef INCLUDE_SHAKEITPWM
 	shShakeitPWM.begin(SHAKEITPWM_ENABLED_MOTORS, SHAKEITPWM_O1, SHAKEITPWM_O2, SHAKEITPWM_O3, SHAKEITPWM_O4);
@@ -1081,7 +1199,8 @@ void setup()
 	shShakeitPWMFans.setMin(SHAKEITPWMFANS_MIN_OUTPUT_O1, SHAKEITPWMFANS_MIN_OUTPUT_O2, SHAKEITPWMFANS_MIN_OUTPUT_O3, SHAKEITPWMFANS_MIN_OUTPUT_O4);
 	shShakeitPWMFans.setMax(SHAKEITPWMFANS_MAX_OUTPUT_O1, SHAKEITPWMFANS_MAX_OUTPUT_O2, SHAKEITPWMFANS_MAX_OUTPUT_O3, SHAKEITPWMFANS_MAX_OUTPUT_O4);
 	shShakeitPWMFans.setRelays(SHAKEITPWMFANS_RELAY_PIN_01, SHAKEITPWMFANS_RELAY_PIN_02, SHAKEITPWMFANS_RELAY_PIN_03, SHAKEITPWMFANS_RELAY_PIN_04,
-		SHAKEITPWMFANS_RELAY_DELAY_01, SHAKEITPWMFANS_RELAY_DELAY_02, SHAKEITPWMFANS_RELAY_DELAY_03, SHAKEITPWMFANS_RELAY_DELAY_04
+		SHAKEITPWMFANS_RELAY_DELAY_01, SHAKEITPWMFANS_RELAY_DELAY_02, SHAKEITPWMFANS_RELAY_DELAY_03, SHAKEITPWMFANS_RELAY_DELAY_04,
+		SHAKEITPWMFANS_RELAY_REVERSELOGIC_01, SHAKEITPWMFANS_RELAY_REVERSELOGIC_02, SHAKEITPWMFANS_RELAY_REVERSELOGIC_03, SHAKEITPWMFANS_RELAY_REVERSELOGIC_04
 	);
 #endif
 
@@ -1091,6 +1210,19 @@ void setup()
 
 	shCustomProtocol.setup();
 	arqserial.setIdleFunction(idle);
+
+#if(GAMEPAD_AXIS_01_ENABLED == 1)
+	SHGAMEPADAXIS01.SetJoystick(&Joystick);
+#endif
+#if(GAMEPAD_AXIS_02_ENABLED == 1)
+	SHGAMEPADAXIS02.SetJoystick(&Joystick);
+#endif
+#if(GAMEPAD_AXIS_03_ENABLED == 1)
+	SHGAMEPADAXIS03.SetJoystick(&Joystick);
+#endif
+#ifdef INCLUDE_GAMEPAD
+	Joystick.sendState();
+#endif
 }
 
 #ifdef  INCLUDE_ENCODERS
@@ -1104,7 +1236,6 @@ void InitEncoders() {
 	if (ENABLED_ENCODERS_COUNT > 6) encoder7.begin(ENCODER7_CLK_PIN, ENCODER7_DT_PIN, ENCODER7_BUTTON_PIN, ENCODER7_REVERSE_DIRECTION, ENCODER7_ENABLE_PULLUP, 7, ENCODER7_ENABLE_HALFSTEPS, EncoderPositionChanged);
 	if (ENABLED_ENCODERS_COUNT > 7) encoder8.begin(ENCODER8_CLK_PIN, ENCODER8_DT_PIN, ENCODER8_BUTTON_PIN, ENCODER8_REVERSE_DIRECTION, ENCODER8_ENABLE_PULLUP, 8, ENCODER8_ENABLE_HALFSTEPS, EncoderPositionChanged);
 }
-
 #endif
 
 #ifdef INCLUDE_GAMEPAD
@@ -1158,6 +1289,9 @@ void loop() {
 #endif
 #ifdef INCLUDE_SHAKEITMOTOMONSTER
 	shShakeitMotoMonster.safetyCheck();
+#endif
+#ifdef INCLUDE_SHAKEIDUALVNH5019
+	shShakeitDualVNH5019.safetyCheck();
 #endif
 #ifdef INCLUDE_SHAKEITADASHIELD
 	shShakeitAdaMotorShieldV2.safetyCheck();
